@@ -13,17 +13,20 @@ lib-cov
 # Coverage directory used by tools like istanbul
 coverage
 
+# bower stores installed things here
+bower_components
+aaa 
+
+
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
-# Dependency directory
-# Commenting this out is preferred by some people, see
-# https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git-
-node_modules
-bower_components 
+# Dependency directories
+node_modules/
+
 
 # Users Environment Variables
 .lock-wscript

@@ -1,0 +1,28 @@
+{
+  "name": "prismo",
+  "version": "0.1.0",
+  "description": "visualize protocol traces for networks",
+  "dependencies": {
+    "bower": "^1.3.12"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dborzov/prismo"
+  },
+  "keywords": [
+    "visualization",
+    "protocols"
+  ],
+  "author": "Peter Borzov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dborzov/prismo/issues"
+  },
+  "homepage": "https://github.com/dborzov/prismo"
+}
