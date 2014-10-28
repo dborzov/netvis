@@ -1,7 +1,9 @@
 module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
-		// concatinate all the library's files
+
+
+		// concatinate all the library's files into one to rule them all
 		concat: {
 		  options: {
 		    // define a string to put between each file in the concatenated output
@@ -13,9 +15,36 @@ module.exports = function(grunt) {
 		    // the location of the resulting JS file
 		    dest: 'dist/<%= pkg.name %>.js'
 		  }
+		},
+
+		// lint shit with hint
+	    jshint: {
+	      files: ['<%= pkg.name %>/**/*.js'],
+	      options: {
+	        // options here to override JSHint defaults
+	        globals: {
+	          jQuery: true,
+	          console: true,
+	          module: true,
+	          document: true
+	        }
+	      }
+	    },
+
+		// watch for any changes and rebuild files live
+		watch: {
+		  scripts: {
+		    files: '<%= pkg.name %>/**/*.js',
+		    tasks: ['jshint', 'concat'],
+		    options: {
+		      livereload: true,
+		    },
+		  }
 		}
 	});
 	grunt.loadNpmTasks('grunt-contrib-concat');
-	
-	grunt.registerTask('default', ['concat']);
+	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
+
+	grunt.registerTask('default', ['jshint','concat','watch']);
 }
