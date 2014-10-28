@@ -40,11 +40,25 @@ module.exports = function(grunt) {
 		      livereload: true,
 		    },
 		  }
+		},
+
+		wiredep: {
+
+		  task: {
+
+		    // Point to the files that should be updated when
+		    // you run `grunt wiredep`
+		    src: [
+		      'index.html'
+		     ]
+		   }
 		}
 	});
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-wiredep');
 
-	grunt.registerTask('default', ['jshint','concat','watch']);
+
+	grunt.registerTask('default', ['wiredep','jshint','concat','watch']);
 }
