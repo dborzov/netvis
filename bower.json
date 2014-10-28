@@ -20,6 +20,7 @@
   ],
   "dependencies": {
     "d3": "~3.4.13",
-    "bootstrap": "~3.2.0"
+    "bootstrap": "~3.2.0",
+    "moment": "~2.8.3"
   }
 }
