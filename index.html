@@ -3,7 +3,10 @@
 	<title>Prismo</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width">
-
+	<!-- bower:css -->
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+	<!-- endbower -->
+	<link rel="stylesheet" href="prismo/styles.css" />
 
 	<!-- bower:js -->
 	<script src="bower_components/jquery/dist/jquery.js"></script>
@@ -15,9 +18,15 @@
 </head>
 <body>
     <div class="container">
-    	<div id="chart">
-    	</div>
+    	<div class="row">
+    	    <div class="col-xs-8">
+		    	<div id="chart">
+		    	</div>
+		    </div>
+		    <div class="col-xs-4">
+		    	<h4>NetVis tool!</h4>
+		    	Here be UI
+		    </div>
+	    </div>
     </div>
-
-	<h4>Behold, IPFS visualization!</h4>
 </body>

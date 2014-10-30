@@ -1,0 +1,12 @@
+.container {
+	margin-top: 20px;
+}
+
+#chart {
+	border: 1px solid grey;
+
+}
+
+circle {
+	fill:steelblue;
+}
