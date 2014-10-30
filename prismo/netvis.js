@@ -4,6 +4,11 @@
 function NetVis(DOMelement) {
 	var self = this;
 	self.DOMelement = DOMelement || "#chart";
+	self.config = {
+		nodeDefaultDistance: 30,
+		nodeDefaultRadius: 10
+	};
+
 	self.Model = {
 		Nodes: [{
 			'id':'abba'
@@ -13,7 +18,10 @@ function NetVis(DOMelement) {
 
 	this.Render = function() {
 		nodes = d3.select(self.DOMelement).append("svg").append("circle");
-		nodes.attr("cx", 30).attr("cy", 30).attr("r",10);
+		nodes
+		    .attr("cx", self.config.nodeDefaultDistance)
+		    .attr("cy", self.config.nodeDefaultDistance)
+		    .attr("r",self.config.nodeDefaultRadius);
 	};
 }
 
