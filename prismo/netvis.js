@@ -4,7 +4,6 @@
 function NetVis(DOMelement) {
 	var self = this;
 	self.DOMelement = DOMelement || "#chart";
-	console.log("NetVis intialized!", self.DOMelement);
 	self.Model = {
 		Nodes: [{
 			'id':'abba'
@@ -13,9 +12,15 @@ function NetVis(DOMelement) {
 	};
 
 	this.Render = function() {
-		d3.select(self.DOMelement).append("svg");
+		nodes = d3.select(self.DOMelement).append("svg").append("circle");
+		nodes.attr("cx", 30).attr("cy", 30).attr("r",10);
 	};
 }
 
 
 var Prismo = new NetVis();
+
+$(function() {
+  console.log('jquery is working!');
+  Prismo.Render();
+});
