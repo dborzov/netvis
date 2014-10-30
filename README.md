@@ -3,6 +3,8 @@ prismo
 
 An attempt at Network Sim Vis Tool: https://github.com/jbenet/random-ideas/issues/30
 
+Netvis format: https://gist.github.com/jbenet/41092a3a55c44b9ed2c5
+
 A visualizer of protocol traces to observe, debug, learn, ... admire... networks. Our main use case is for IPFS (ipfs.io, github.com/jbenet/ipfs) and Filecoin (filecoin.io). 
 Rough scheme:
 
