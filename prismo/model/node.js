@@ -27,8 +27,8 @@ function NetVisModelNodes() {
 		}
 			arc = 2 * Math.PI / self._nodesArray.length;
 		for (var i=0; i< self._nodesArray.length; i++) {
-			self._nodesArray[i].x = 0.5 + 0.3 * Math.sin(i*arc);
-			self._nodesArray[i].y = 0.5 - 0.3 * Math.cos(i*arc);
+			self._nodesArray[i]._x = 0.5 + 0.3 * Math.sin(i*arc);
+			self._nodesArray[i]._y = 0.5 - 0.3 * Math.cos(i*arc);
 		}
 	};
 }
