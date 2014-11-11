@@ -46,6 +46,11 @@ function NetVis(DOMelement) {
 		    .on("click",function(d) { self._selected = d; self.Render();})
 		    .attr("r",self.config.nodeDefaultRadius);
 
+		// highlight selected node
+		nodes.filter(function(d) {return self._selected.id === d.id;})
+			.attr('class','node selected')
+			.attr("r",2*self.config.nodeDefaultRadius);
+
 		$("#properties-tbody").empty();
 		attributes = [];
 		for (var key in self._selected) {

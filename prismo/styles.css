@@ -47,6 +47,15 @@ circle.node:hover {
 	fill:#9999ff;
 }
 
+
 circle.node.selected {
-	fill:#ddddff;
+	fill:#aa88ff;
+	stroke:red; 
+	stroke-width:8px;
+}
+
+circle.node.selected:hover {
+	fill:#aa88ff;
+	stroke:red; 
+	stroke-width:12px;
 }
