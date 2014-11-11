@@ -122,6 +122,7 @@ function NetVis(DOMelement) {
 
 	self.resetPositions = function() {
 		self.Nodes.resetPositions();
+		self._selected = self;
 		self.Render();
 	};
 }
