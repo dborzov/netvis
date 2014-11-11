@@ -26,10 +26,13 @@ function NetVis(DOMelement) {
 	};
 
 	this.Render = function() {
-		nodes = d3.select(self.DOMelement).append("svg").append("circle");
+		canvas = d3.select(self.DOMelement) .append("svg")
+			.attr("width",$(self.DOMelement).width())
+			.attr("height",$(self.DOMelement).height());
+		nodes = canvas.selectAll("circle").data(self.Nodes._nodesArray).enter().append("circle");
 		nodes
-		    .attr("cx", self.config.nodeDefaultDistance)
-		    .attr("cy", self.config.nodeDefaultDistance)
+		    .attr("cx", function(d) { return d.x*$(self.DOMelement).width();})
+		    .attr("cy", function(d) { return d.y*$(self.DOMelement).height();})
 		    .attr("r",self.config.nodeDefaultRadius);
 	};
 }
