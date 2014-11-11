@@ -26,6 +26,7 @@ function NetVis(DOMelement) {
 
 	};
 	this.Render = function() {
+		var width = $(self._topologyPanel).width();
 		$(self._topologyPanel).empty();
 		canvas = d3.select(self._topologyPanel) 
 			.append("svg")
@@ -38,13 +39,44 @@ function NetVis(DOMelement) {
 			.attr("r", 0.3*$(self._topologyPanel).width())
 			.attr("class", "contour");
 
+
+
 		nodes = canvas.selectAll("circle.node").data(self.Nodes._nodesArray).enter().append("circle");
-		nodes
-			.attr('class','node')
-		    .attr("cx", function(d) { return d._x*$(self._topologyPanel).width();})
-		    .attr("cy", function(d) { return d._y*$(self._topologyPanel).width();})
+
+		var syncPositions = function() {
+			return	nodes
+				.attr('class','node')
+			    .attr("cx", function(d) {
+			    	if (!d._xAbs) {
+			    		d._xAbs = d._x*width; 
+				    }
+		    		return d._xAbs;
+			    })
+			    .attr("cy", function(d) {
+			    	if (!d._yAbs) {
+				    	d._yAbs = d._y*width;
+			    	} 
+		    		return d._yAbs;
+			    });			
+		};
+
+		syncPositions()
 		    .on("click",function(d) { self._selected = d; self.Render();})
-		    .attr("r",self.config.nodeDefaultRadius);
+		    .attr("r",self.config.nodeDefaultRadius)
+		    .call(d3.behavior.drag()
+		      .on("dragstart", function(d) {
+		        this.__origin__ = [d._xAbs, d._yAbs];
+		      })
+		      .on("drag", function(d) {
+		        d._xAbs = Math.min(width, Math.max(0, this.__origin__[0] += d3.event.dx));
+		        d._yAbs = Math.min(width, Math.max(0, this.__origin__[1] += d3.event.dy));
+		        syncPositions();
+		      })
+		      .on("dragend", function() {
+		        delete this.__origin__;
+		      }));
+
+
 
 		// highlight selected node
 		nodes.filter(function(d) {return self._selected.id === d.id;})
