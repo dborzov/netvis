@@ -1,0 +1,16 @@
+{
+	"traceID":"Jupiter logs",
+	"nodes":[{
+		"id":"Qmd9uGaZ6vKTES5nezVyCZDP2zJzdii2EXWiCbyGYq1tZX",
+		"name":"Jupiter"
+	}
+	],
+	"messages":[
+		"sourceNode": "QmTJK2RNhRWb6ej3say6SSgLUtYzQmWYBw7vjSPgjmtjmV",
+		"destinationNode": "Qmd9uGaZ6vKTES5nezVyCZDP2zJzdii2EXWiCbyGYq1tZX",
+		"protocol": "IPFS 0.1",
+		"type": "join",
+		"contents": "Hello Jupiter!"
+		"arrivalTime": "Tue Nov 11 20:44:14 UTC 2014",
+	]
+}
