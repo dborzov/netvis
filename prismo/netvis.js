@@ -23,12 +23,10 @@ function NetVis(DOMelement) {
 		    .attr("cy", self.config.nodeDefaultDistance)
 		    .attr("r",self.config.nodeDefaultRadius);
 	};
+
+	this.View = new NetVisView();
 }
 
 
-var Prismo = new NetVis();
 
-$(function() {
-  console.log('jquery is working!');
-  Prismo.Render();
-});
+

@@ -1,3 +1,6 @@
+/* General UI Styling */
+
+
 .container {
 	margin-top: 20px;
 }
@@ -7,6 +10,12 @@
 	min-height: 600px;
 
 }
+
+.error-alert {
+	display:none;
+}
+
+/* Topology Panel Canvas Styling */
 
 circle {
 	fill:steelblue;
