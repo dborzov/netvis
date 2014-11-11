@@ -41,6 +41,8 @@ circle.contour {
 
 circle.node {
 	fill:steelblue;
+	stroke:black; 
+	stroke-width:0.5px;
 }
 
 circle.node:hover {
