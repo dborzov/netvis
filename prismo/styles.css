@@ -17,6 +17,11 @@
 	margin-top: 20px;
 }
 
+.properties-column {
+	max-width: 70px;
+	word-wrap:"break-word"; 
+}
+
 #chart {
 	border: 1px solid grey;
 	min-height: 700px;

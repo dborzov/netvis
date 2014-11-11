@@ -47,6 +47,7 @@ function NetVis(DOMelement) {
 		    .attr("r",self.config.nodeDefaultRadius);
 
 		$("#properties-tbody").empty();
+		attributes = [];
 		for (var key in self._selected) {
 		   if (!self._selected.hasOwnProperty(key)) {
 		   	// inherited attribute, ignoring
@@ -59,10 +60,26 @@ function NetVis(DOMelement) {
 		   if (key.charAt(0) === "_") {
 		   	// private attribute, ignoring
 		   	continue;
-		   }
-	       $("#properties-tbody").append("<tr><td>"+key + "</td><td>" + self._selected[key] + "</td></tr>");
-		   
+		   }		   
+		   attributes.push({"attr": key, "value":self._selected[key], "obj": typeof(self._selected[key]) == "object"});
 		}
+
+        rows = d3.select("#properties-tbody").selectAll("tr").data(attributes).enter().append("tr");
+
+        rows.append("td").text(function(d) {return d.attr; });
+
+        rows.filter(function(d) {return !d.obj;})
+	        .append("td")
+	        .append("div")
+	        .attr("class","properties-column")
+	        .text(function(d) {return d.value; });
+
+        rows.filter(function(d) {return d.obj;}).append("td").append("a").text(function(d) {return "more.."; })
+	        .on("click", function(d) {self._selected = d.value; self.Render();});
+
+
+        // append("<tr><td>"+key + "</td><td>" + self._selected[key] + "</td></tr>");
+
 	};
 }
 
