@@ -4,9 +4,18 @@
 
 #chart {
 	border: 1px solid grey;
+	min-height: 600px;
 
 }
 
 circle {
 	fill:steelblue;
+}
+
+circle:hover {
+	fill:#9999ff;
+}
+
+circle.selected {
+	fill:#ddddff;
 }
