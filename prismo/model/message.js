@@ -4,4 +4,4 @@
 NetVisMessages = function() {
 	var self = this;
 
-}
+};

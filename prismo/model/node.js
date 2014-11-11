@@ -38,4 +38,4 @@ NetVisNodes = function() {
 			delete self._nodesArray[i]._yAbs;
 		}
 	};
-}
+};
