@@ -53,11 +53,11 @@ circle.node:hover {
 circle.node.selected {
 	fill:#aa88ff;
 	stroke:red; 
-	stroke-width:8px;
+	stroke-width:3px;
 }
 
 circle.node.selected:hover {
-	fill:#aa88ff;
+	fill:#aa99ff;
 	stroke:red; 
-	stroke-width:12px;
+	stroke-width:6px;
 }
