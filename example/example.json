@@ -13,6 +13,14 @@
 	{
 		"id":"QmdqaPCyuyAD2DNGGVTEdUmH33sBF62YpSM7oWi1CoCkm8",
 		"name": "Earth"
+	},
+	{
+		"id":"QmPjvZq3to2Ayt8YcSjqdHJrZ5c3wjFdLbu2UTuRapEP7E",
+		"name":"Mars"
+	},
+	{
+		"id":"Qmd9uGaZ6vKTES5nezVyCZDP2zJzdii2EXWiCbyGYq1tZX",
+		"name":"Jupiter"
 	}
 	]
 }
