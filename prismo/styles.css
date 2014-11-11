@@ -5,6 +5,10 @@
 	margin-top: 20px;
 }
 
+.history-panel {
+	margin-top: 20px;
+}
+
 #chart {
 	border: 1px solid grey;
 	min-height: 700px;
