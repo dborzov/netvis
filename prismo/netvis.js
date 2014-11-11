@@ -42,7 +42,7 @@ function NetVis(DOMelement) {
 
 
 
-		nodes = canvas.selectAll("circle.node").data(self.Nodes._nodesArray).enter().append("circle");
+		nodes = canvas.selectAll("circle.node").data(self.Nodes.asArray).enter().append("circle");
 
 		var syncPositions = function() {
 			return	nodes
