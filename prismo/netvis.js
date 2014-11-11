@@ -29,10 +29,18 @@ function NetVis(DOMelement) {
 		canvas = d3.select(self.DOMelement) .append("svg")
 			.attr("width",$(self.DOMelement).width())
 			.attr("height",$(self.DOMelement).height());
-		nodes = canvas.selectAll("circle").data(self.Nodes._nodesArray).enter().append("circle");
+
+		canvas.append("circle")
+			.attr("cx", 0.5*$(self.DOMelement).width())
+			.attr("cy", 0.5*$(self.DOMelement).width())
+			.attr("r", 0.3*$(self.DOMelement).width())
+			.attr("class", "contour");
+
+		nodes = canvas.selectAll("circle.node").data(self.Nodes._nodesArray).enter().append("circle");
 		nodes
+			.attr('class','node')
 		    .attr("cx", function(d) { return d.x*$(self.DOMelement).width();})
-		    .attr("cy", function(d) { return d.y*$(self.DOMelement).height();})
+		    .attr("cy", function(d) { return d.y*$(self.DOMelement).width();})
 		    .attr("r",self.config.nodeDefaultRadius);
 	};
 }
