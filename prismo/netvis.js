@@ -9,11 +9,20 @@ function NetVis(DOMelement) {
 		nodeDefaultRadius: 10
 	};
 
-	self.Model = {
-		Nodes: [{
-			'id':'abba'
+	self.Nodes = new NetVisModelNodes();
+	this.View = new NetVisView();
+
+	this.jsonAdapter = function(srcJSON) {
+		// jsonAdapter loads JSON in NetVis format   
+		if (!srcJSON) {
+			return 'srcJSON needs to be JSON object';
 		}
-		]
+		if (srcJSON.nodes) {
+			for (var nodeKey in srcJSON.nodes) {
+				self.Nodes.loadNode(srcJSON.nodes[nodeKey]);
+			}
+		}
+
 	};
 
 	this.Render = function() {
@@ -23,8 +32,6 @@ function NetVis(DOMelement) {
 		    .attr("cy", self.config.nodeDefaultDistance)
 		    .attr("r",self.config.nodeDefaultRadius);
 	};
-
-	this.View = new NetVisView();
 }
 
 

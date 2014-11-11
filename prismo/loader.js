@@ -7,7 +7,8 @@ $(function() {
   		return;
   	}
   	Prismo.View.Logger.info("Succesfully resolved " + SrcURL);
+    Prismo.jsonAdapter(json);
+    Prismo.View.Logger.info(Prismo);
+    Prismo.Render();
   });
-
-  Prismo.Render();
 });
