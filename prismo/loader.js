@@ -1,6 +1,9 @@
 $(function() {
   var Prismo = new NetVis(),
     SrcURL="example/example.json";
+
+
+  $("#reset-positions").click(Prismo.resetPositions);
   d3.json(SrcURL, function(error, json) {
   	if (error) {
   		Prismo.View.Logger.error("Failure loading "+SrcURL+": "+ error.statusText);

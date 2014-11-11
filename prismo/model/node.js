@@ -31,4 +31,11 @@ function NetVisModelNodes() {
 			self._nodesArray[i]._y = 0.5 - 0.3 * Math.cos(i*arc);
 		}
 	};
+
+	self.resetPositions = function() {
+		for (var i=0; i< self._nodesArray.length; i++) {
+			delete self._nodesArray[i]._xAbs;
+			delete self._nodesArray[i]._yAbs;
+		}
+	};
 }

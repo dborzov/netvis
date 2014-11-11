@@ -13,7 +13,7 @@ function NetVis(DOMelement) {
 	self.View = new NetVisView();
 	self._selected = self; // _selected object's public attributes are shown at properties-table
 
-	this.jsonAdapter = function(srcJSON) {
+	self.jsonAdapter = function(srcJSON) {
 		// jsonAdapter loads JSON in NetVis format   
 		if (!srcJSON) {
 			return 'srcJSON needs to be JSON object';
@@ -25,7 +25,7 @@ function NetVis(DOMelement) {
 		}
 
 	};
-	this.Render = function() {
+	self.Render = function() {
 		var width = $(self._topologyPanel).width();
 		$(self._topologyPanel).empty();
 		canvas = d3.select(self._topologyPanel) 
@@ -33,6 +33,7 @@ function NetVis(DOMelement) {
 			.attr("width",$(self._topologyPanel).width())
 			.attr("height",$(self._topologyPanel).height());
 
+		// Draw the big grey circle in the center
 		canvas.append("circle")
 			.attr("cx", 0.5*$(self._topologyPanel).width())
 			.attr("cy", 0.5*$(self._topologyPanel).width())
@@ -117,6 +118,11 @@ function NetVis(DOMelement) {
 
         // append("<tr><td>"+key + "</td><td>" + self._selected[key] + "</td></tr>");
 
+	};
+
+	self.resetPositions = function() {
+		self.Nodes.resetPositions();
+		self.Render();
 	};
 }
 
