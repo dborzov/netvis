@@ -22,6 +22,7 @@ function NetVis(DOMelement) {
 			for (var nodeKey in srcJSON.nodes) {
 				self.Nodes.load(srcJSON.nodes[nodeKey]);
 			}
+			self.Nodes.updateAll();
 		}
 
 	};
@@ -114,9 +115,6 @@ function NetVis(DOMelement) {
 
         rows.filter(function(d) {return d.obj;}).append("td").append("a").text(function(d) {return "more.."; })
 	        .on("click", function(d) {self._selected = d.value; self.Render();});
-
-
-        // append("<tr><td>"+key + "</td><td>" + self._selected[key] + "</td></tr>");
 
 	};
 

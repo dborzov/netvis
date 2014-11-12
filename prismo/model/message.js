@@ -3,5 +3,5 @@
 
 NetVisMessages = function() {
 	var self = this;
-
+	BaseNetVisModel.apply(self); // Messages class inherits from baseModel
 };

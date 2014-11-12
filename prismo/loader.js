@@ -1,6 +1,6 @@
 $(function() {
   var Prismo = new NetVis(),
-    SrcURL="example/example.json";
+    SrcURL="example/mercury.json";
 
 
   $("#reset-positions").click(Prismo.resetPositions);
