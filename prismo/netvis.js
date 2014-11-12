@@ -10,6 +10,7 @@ function NetVis(DOMelement) {
 	};
 
 	self.Nodes = new NetVisNodes();
+	self.messages = new NetVisMessages();
 	self.View = new NetVisView();
 	self._selected = self; // _selected object's public attributes are shown at properties-table
 
@@ -23,6 +24,14 @@ function NetVis(DOMelement) {
 				self.Nodes.load(srcJSON.nodes[nodeKey]);
 			}
 			self.Nodes.updateAll();
+		}
+
+		if (srcJSON.messages) {
+			for (var msgKey in srcJSON.messages) {
+				self.View.Logger.info("load msg ");
+				self.View.Logger.info(srcJSON.messages[msgKey]);
+				self.messages.load(srcJSON.messages[msgKey]);
+			}
 		}
 
 	};
