@@ -8,6 +8,7 @@ BaseNetVisModel = function() {
 	self.load = function(srcObject) {
 		// loadNode updates nodesModel with node data read off srcObject
 		// e.g. loadNode({'id':'ff34', 'name':'Node34'})
+		// returns created object if success, error string if failed
 		if (!srcObject.id) {
 			return 'Descriptor has no ID';
 		}
@@ -17,5 +18,6 @@ BaseNetVisModel = function() {
 
 		self._asObject[srcObject.id] = srcObject;
 		self.asArray.push(srcObject);
+		return srcObject;
 	};
 };

@@ -14,9 +14,7 @@ NetVis.prototype.parse = function(srcJSON) {
 
 	if (srcJSON.messages) {
 		for (var msgKey in srcJSON.messages) {
-			this.View.Logger.info("load msg ");
-			this.View.Logger.info(srcJSON.messages[msgKey]);
-			this.messages.load(srcJSON.messages[msgKey]);
+			this._parseMessage(srcJSON.messages[msgKey]);
 		}
 	}
 
