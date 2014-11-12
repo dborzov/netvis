@@ -9,10 +9,12 @@ NetVis.prototype._parseMessage = function(src) {
 
 	if (this.Nodes._asObject[r.sourceNode]) {
 		r.source = this.Nodes._asObject[r.sourceNode];
+		delete r.sourceNode;
 	}
 
 	if (this.Nodes._asObject[r.destinationNode]) {
 		r.destination = this.Nodes._asObject[r.destinationNode];
+		delete r.destinationNode;
 	}
 	return r;
 };
