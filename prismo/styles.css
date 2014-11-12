@@ -34,6 +34,8 @@
 
 /* Topology Panel Canvas Styling */
 
+
+/* nodes */
 circle.contour {
 	fill-opacity:0.02;
 }
@@ -60,4 +62,10 @@ circle.node.selected:hover {
 	fill:#aa99ff;
 	stroke:red; 
 	stroke-width:6px;
+}
+
+/* messages */
+line.message {
+	stroke:black; 
+	stroke-width:0.5px;
 }

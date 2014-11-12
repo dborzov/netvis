@@ -46,12 +46,20 @@ NetVis.prototype.Render = function() {
 		.attr("class", "contour");
 
 
+	messages = canvas.selectAll('line.message').data(self.messages.asArray)
+		.enter().append('line').attr('class','message');
 
-	nodes = canvas.selectAll("circle.node").data(self.Nodes.asArray).enter().append("circle");
+	nodes = canvas.selectAll("circle.node").data(self.Nodes.asArray)
+		.enter().append("circle").attr('class','node');
 
 	var syncPositions = function() {
+		messages
+		    .attr("x1", function(d) {return d.source._xAbs;})
+		    .attr("y1", function(d) {return d.source._yAbs;})
+		    .attr("x2", function(d) {return d.destination._xAbs;})
+		    .attr("y2", function(d) {return d.destination._yAbs;});
+
 		return	nodes
-			.attr('class','node')
 		    .attr("cx", function(d) {return d._xAbs;})
 		    .attr("cy", function(d) {return d._yAbs;});
 	};
