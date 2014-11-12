@@ -21,6 +21,16 @@ NetVis.prototype.Render = function() {
 	var self = this;
 	var width = $(self._topologyPanel).width();
 
+	self.Nodes.asArray.forEach(function(el) {
+		    	if (!el._xAbs) {
+		    		el._xAbs = el._x*width; 
+			    }
+		    	if (!el._yAbs) {
+			    	el._yAbs = el._y*width;
+		    	} 
+	});
+
+
 	
 	$(self._topologyPanel).empty();
 	canvas = d3.select(self._topologyPanel) 
@@ -30,9 +40,9 @@ NetVis.prototype.Render = function() {
 
 	// Draw the big grey circle in the center
 	canvas.append("circle")
-		.attr("cx", 0.5*$(self._topologyPanel).width())
-		.attr("cy", 0.5*$(self._topologyPanel).width())
-		.attr("r", 0.3*$(self._topologyPanel).width())
+		.attr("cx", 0.5*width)
+		.attr("cy", 0.5*width)
+		.attr("r", 0.3*width)
 		.attr("class", "contour");
 
 
@@ -42,18 +52,8 @@ NetVis.prototype.Render = function() {
 	var syncPositions = function() {
 		return	nodes
 			.attr('class','node')
-		    .attr("cx", function(d) {
-		    	if (!d._xAbs) {
-		    		d._xAbs = d._x*width; 
-			    }
-	    		return d._xAbs;
-		    })
-		    .attr("cy", function(d) {
-		    	if (!d._yAbs) {
-			    	d._yAbs = d._y*width;
-		    	} 
-	    		return d._yAbs;
-		    });			
+		    .attr("cx", function(d) {return d._xAbs;})
+		    .attr("cy", function(d) {return d._yAbs;});
 	};
 
 	syncPositions()
