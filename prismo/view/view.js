@@ -64,6 +64,7 @@ NetVis.prototype.Render = function() {
 		    .attr("cy", function(d) {return d._yAbs;});
 	};
 
+	
 	syncPositions()
 	    .on("click",function(d) { self._selected = d; self.Render();})
 	    .attr("r",self.config.nodeDefaultRadius)
@@ -87,6 +88,8 @@ NetVis.prototype.Render = function() {
 		.attr('class','node selected')
 		.attr("r",2*self.config.nodeDefaultRadius);
 
+
+	// Render properties-table
 	$("#properties-tbody").empty();
 	attributes = [];
 	for (var key in self._selected) {
