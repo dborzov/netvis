@@ -1,14 +1,15 @@
 [
 	{
 		"time": "2014-11-12T11:34:01.077817100Z",
+		"loggerID":"QmdqaPCyuyAD2DNGGVTEdUmH33sBF62YpSM7oWi1CoCkm8",
 		"level": "info",
 		"event":"nodeEntered",
-		"nodeID":"QmdqaPCyuyAD2DNGGVTEdUmH33sBF62YpSM7oWi1CoCkm8",
 		"name": "Earth"
 	},
 
 	{
 		"time": "2014-11-12T11:34:01.477817180Z",
+		"loggerID":"QmdqaPCyuyAD2DNGGVTEdUmH33sBF62YpSM7oWi1CoCkm8",
 		"level": "info",
 		"event":"messageSent",
 		"destinationNode": "Qmd9uGaZ6vKTES5nezVyCZDP2zJzdii2EXWiCbyGYq1tZX",
@@ -24,6 +25,7 @@
 
 	{
 		"time": "2014-11-12T11:34:02.000000003Z",
+		"loggerID":"QmdqaPCyuyAD2DNGGVTEdUmH33sBF62YpSM7oWi1CoCkm8",
 		"level": "info",
 		"event":"messageReceived",
 		"sourceNode": "Qmd9uGaZ6vKTES5nezVyCZDP2zJzdii2EXWiCbyGYq1tZX",
