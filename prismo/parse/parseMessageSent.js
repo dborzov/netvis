@@ -1,6 +1,6 @@
 // parseMessage.js
 
-NetVis.prototype._parseMessage = function(src) {
+NetVis.prototype._parseMessageSent = function(src) {
 	// returns created object if success, string if error parsing
 	var r = this.messages.load(src);
 	if (typeof(r) === "string") {

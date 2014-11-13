@@ -2,20 +2,25 @@
 
 NetVis.prototype.parse = function(srcJSON) {
 	// jsonAdapter loads JSON in NetVis format   
-	if (!srcJSON) {
-		return 'srcJSON needs to be JSON object';
-	}
-	if (srcJSON.nodes) {
-		for (var nodeKey in srcJSON.nodes) {
-			this.Nodes.load(srcJSON.nodes[nodeKey]);
-		}
-		this.Nodes.updateAll();
+
+	if (typeof(srcJSON) !== 'object') {
+		return 'srcJSON needs to be a JSON object';
 	}
 
-	if (srcJSON.messages) {
-		for (var msgKey in srcJSON.messages) {
-			this._parseMessage(srcJSON.messages[msgKey]);
+	for (var i=0; i< srcJSON.length; i++) {
+		if (typeof(srcJSON[i]) !== 'object') {
+			console.log("failing to parse event:",srcJSON[i]);
+			continue;
 		}
+
+		switch (srcJSON[i].event) {
+			case "messageSent":
+				this._parseMessageSent(srcJSON[i]);
+				break;
+			default:
+				console.log("Event type ",srcJSON[i].event, " not supported");
+		}
+
 	}
 
 };
