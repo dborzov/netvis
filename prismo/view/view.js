@@ -52,7 +52,9 @@ NetVis.prototype.Render = function() {
 		.attr('class','message');
 
 	nodes = canvas.selectAll("circle.node").data(self.Nodes.asArray)
-		.enter().append("circle").attr('class','node');
+		.enter().append("circle")
+	    .on("click",function(d) { self._selected = d; self.Render();})
+	    .attr('class','node');
 
 	var syncPositions = function() {
 		messages
@@ -68,7 +70,6 @@ NetVis.prototype.Render = function() {
 
 	
 	syncPositions()
-	    .on("click",function(d) { self._selected = d; self.Render();})
 	    .attr("r",self.config.nodeDefaultRadius)
 	    .call(d3.behavior.drag()
 	      .on("dragstart", function(d) {
@@ -88,10 +89,12 @@ NetVis.prototype.Render = function() {
 	// highlight selected node
 	nodes.filter(function(d) {return self._selected.id === d.id;})
 		.attr('class','node selected')
+	    .on("click",function(d) { self._selected = self; self.Render();}) // double click unselects it
 		.attr("r",2*self.config.nodeDefaultRadius);
 
 	// highlight selected message
 	messages.filter(function(d) {return self._selected.id === d.id;})
+	    .on("click",function(d) { self._selected = self; self.Render();}) // double click unselects it
 		.attr('class','message selected');
 
 
