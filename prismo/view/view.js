@@ -47,7 +47,9 @@ NetVis.prototype.Render = function() {
 
 
 	messages = canvas.selectAll('line.message').data(self.messages.asArray)
-		.enter().append('line').attr('class','message');
+		.enter().append('line')
+		.on("click",function(d) { self._selected = d; self.Render();})
+		.attr('class','message');
 
 	nodes = canvas.selectAll("circle.node").data(self.Nodes.asArray)
 		.enter().append("circle").attr('class','node');
@@ -87,6 +89,11 @@ NetVis.prototype.Render = function() {
 	nodes.filter(function(d) {return self._selected.id === d.id;})
 		.attr('class','node selected')
 		.attr("r",2*self.config.nodeDefaultRadius);
+
+	// highlight selected message
+	messages.filter(function(d) {return self._selected.id === d.id;})
+		.attr('class','message selected');
+
 
 
 	// Render properties-table
