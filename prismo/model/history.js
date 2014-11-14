@@ -5,21 +5,18 @@ NetVisHistory = function() {
 	BaseNetVisModel.apply(this); // History class inherits from baseModel
 	
 	this.loadEvent = function(obj, momentTime) {
-		log.console('loading event ', obj);
 		obj._t = momentTime;
 		obj.time = momentTime.toISOString();
-		var isoTime = momentTime.toISOString();
-		var i=0;
-		var eventID = isoTime; 
 		// eventID to be unique and contain timestamp
 		// of form "<timestamp>#3" where 3 is count of events with
 		// the same timestamp
-		log.console(eventID);
-		while (this.asObject[eventID]){
+		var i=1,
+			obj.id = obj.time;
+		while(this._asObject[obj.id]){
 			i++;
-			eventID = isoTime + "#" + i;
+			obj.id = obj.time + "#" + i;
 		}
-		obj.id = eventID;
+		obj.id = obj.time;
 		this.load(obj);
 	};
 	// add default time margin moments
