@@ -21,7 +21,7 @@ NetVis.prototype._parseMessageSent = function(src) {
 	r.destination = this.Nodes._asObject[src.destinationNode];
 
 	src.message = r;
-	var e = this.history.load(src, src.time);
+	var e = this.history.loadEvent(src, moment(src.time));
 
 	return r;
 };
