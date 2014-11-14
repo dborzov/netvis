@@ -72,10 +72,10 @@ line.message {
 
 line.message:hover {
 	stroke:black; 
-	stroke-width:6.5px;
+	stroke-width:7.5px;
 }
 
 line.message.selected {
 	stroke:red; 
-	stroke-width:8.0px;
+	stroke-width:12.0px;
 }
