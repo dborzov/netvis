@@ -11,9 +11,11 @@ function NetVis(DOMelement) {
 
 	self.Nodes = new NetVisNodes();
 	self.messages = new NetVisMessages();
+	self.history = new NetVisHistory();
 	self.View = new NetVisView();
 	self._selected = self; // _selected object's public attributes are shown at properties-table
 
+	
 	self.resetPositions = function() {
 		self.Nodes.resetPositions();
 		self._selected = self;

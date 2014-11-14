@@ -12,6 +12,7 @@ BaseNetVisModel = function() {
 		if (!srcObject.id && assignID) {
 			srcObject.id = assignID;
 		}
+
 		if (!srcObject.id) {
 			return 'BaseNetVisModel.load() no ID provided';
 		} 
@@ -20,7 +21,6 @@ BaseNetVisModel = function() {
 			return self._asObject[srcObject.id];
 		}
 
-		console.log('oi:', srcObject);
 		self._asObject[srcObject.id] = srcObject;
 		self.asArray.push(srcObject);
 		return srcObject;
