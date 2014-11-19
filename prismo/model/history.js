@@ -10,8 +10,8 @@ NetVisHistory = function() {
 		// eventID to be unique and contain timestamp
 		// of form "<timestamp>#3" where 3 is count of events with
 		// the same timestamp
-		var i=1,
-			obj.id = obj.time;
+		var i=1;
+		obj.id = obj.time;
 		while(this._asObject[obj.id]){
 			i++;
 			obj.id = obj.time + "#" + i;
@@ -22,4 +22,8 @@ NetVisHistory = function() {
 	// add default time margin moments
 	this.loadEvent({"tag":"start"},moment("1970-01-01"));	
 	this.loadEvent({"tag":"end"},moment("3000-01-01"));	
+
+
+
+
 };
