@@ -20,7 +20,7 @@ NetVisHistory = function() {
 		this._asObject[obj.id] = obj;
 
 
-		// insert momentTime so that asObject is sorted
+		// insert event so that asArray is sorted
 		// with binary search for appropriate position
 		var cur = 0,
 			lowI = 0,
@@ -34,13 +34,39 @@ NetVisHistory = function() {
 			}
 		}
 		this.asArray.splice(Math.floor((highI + lowI) /2), 0,obj);
-		console.log("inserting ", obj.id, " at ", Math.floor((highI + lowI) /2));
 	};
+
+
+	this.updateAll = function() {
+		// create interval instances from events array
+		if (!this.asArray) {
+			// no events or not initialized
+			return;
+		}
+		this.intervals = [];
+
+		// all events happenning at the same time
+		cur = 0;
+		startEvents = [this.asArray[cur]];
+		cur ++;
+		while (cur < this.asArray.length -1 && !this.asArray[cur]._t.isAfter(startEvents[0]._t)) {
+			startEvents.push(this.asArray[cur]);			
+			cur++;
+		}
+
+		finishEvents =[this.asArray[cur]];
+		while (cur < this.asArray.length -1 && !this.asArray[cur]._t.isAfter(finishEvents[0]._t)) {
+			finishEvents.push(this.asArray[cur]);			
+			cur++;
+		}
+		this.intervals.push(new NetVisInterval(startEvents, finishEvents));
+	};
+
+
 	// add default time margin moments
 	this.loadEvent({"tag":"end"},moment("3000-01-01"));	
 	this.loadEvent({"tag":"start"},moment("1970-01-01"));	
-	this.loadEvent({"tag":"middle"},moment("2014-01-01"));	
-
+	this.updateAll();
 
 
 
