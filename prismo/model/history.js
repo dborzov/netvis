@@ -17,11 +17,29 @@ NetVisHistory = function() {
 			obj.id = obj.time + "#" + i;
 		}
 		obj.id = obj.time;
-		this.load(obj);
+		this._asObject[obj.id] = obj;
+
+
+		// insert momentTime so that asObject is sorted
+		// with binary search for appropriate position
+		var cur = 0,
+			lowI = 0,
+			highI = this.asArray.length;
+		while (lowI < highI) {
+			cur = Math.floor((highI + lowI) /2);
+			if (this.asArray[cur]._t.isBefore(obj._t)) {
+				lowI = cur + 1;	
+			} else {
+				highI = cur;
+			}
+		}
+		this.asArray.splice(Math.floor((highI + lowI) /2), 0,obj);
+		console.log("inserting ", obj.id, " at ", Math.floor((highI + lowI) /2));
 	};
 	// add default time margin moments
-	this.loadEvent({"tag":"start"},moment("1970-01-01"));	
 	this.loadEvent({"tag":"end"},moment("3000-01-01"));	
+	this.loadEvent({"tag":"start"},moment("1970-01-01"));	
+	this.loadEvent({"tag":"middle"},moment("2014-01-01"));	
 
 
 
