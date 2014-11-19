@@ -5,6 +5,7 @@ function NetVis(Options) {
 	var self = this;
 	self._topologyPanel = Options.topologyPanel || "#chart";
 	self._historyPanel = Options.historyPanel || "#history";
+	self._timePanel = Options.timePanel || "#timestamp";
 
 	self.config = {
 		nodeDefaultDistance: 30,

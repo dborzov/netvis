@@ -16,8 +16,25 @@ function NetVisView() {
 	};
 }
 
+NetVis.prototype.initView = function() {
+     // Render time-controls panel
+     $("#history")
+     	.attr("min",1)
+     	.attr("max",this.history.intervals.length);
 
-NetVis.prototype.Render = function() {
+     $('#history').rangeslider('destroy');
+     $('#history').rangeslider({
+       polyfill: false,
+       onSlideEnd: function(position, value) {
+       	$('#timestamp').html(value);
+       }
+     });
+     this.render();
+};
+
+
+
+NetVis.prototype.render = function() {
 	var self = this;
 	var width = $(self._topologyPanel).width();
 
@@ -48,12 +65,12 @@ NetVis.prototype.Render = function() {
 
 	messages = canvas.selectAll('line.message').data(self.messages.asArray)
 		.enter().append('line')
-		.on("click",function(d) { self._selected = d; self.Render();})
+		.on("click",function(d) { self._selected = d; self.render();})
 		.attr('class','message');
 
 	nodes = canvas.selectAll("circle.node").data(self.Nodes.asArray)
 		.enter().append("circle")
-	    .on("click",function(d) { self._selected = d; self.Render();})
+	    .on("click",function(d) { self._selected = d; self.render();})
 	    .attr('class','node');
 
 	var syncPositions = function() {
@@ -89,12 +106,12 @@ NetVis.prototype.Render = function() {
 	// highlight selected node
 	nodes.filter(function(d) {return self._selected.id === d.id;})
 		.attr('class','node selected')
-	    .on("click",function(d) { self._selected = self; self.Render();}) // double click unselects it
+	    .on("click",function(d) { self._selected = self; self.render();}) // double click unselects it
 		.attr("r",2*self.config.nodeDefaultRadius);
 
 	// highlight selected message
 	messages.filter(function(d) {return self._selected.id === d.id;})
-	    .on("click",function(d) { self._selected = self; self.Render();}) // double click unselects it
+	    .on("click",function(d) { self._selected = self; self.render();}) // double click unselects it
 		.attr('class','message selected');
 
 
@@ -129,9 +146,7 @@ NetVis.prototype.Render = function() {
         .text(function(d) {return d.value; });
 
     rows.filter(function(d) {return d.obj;}).append("td").append("a").text(function(d) {return "more.."; })
-        .on("click", function(d) {self._selected = d.value; self.Render();});
+        .on("click", function(d) {self._selected = d.value; self.render();});
 
-
-
-     // Render time-controls panel
+     	
 };
