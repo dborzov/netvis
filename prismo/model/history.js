@@ -54,12 +54,17 @@ NetVisHistory = function() {
 			cur++;
 		}
 
-		finishEvents =[this.asArray[cur]];
-		while (cur < this.asArray.length -1 && !this.asArray[cur]._t.isAfter(finishEvents[0]._t)) {
-			finishEvents.push(this.asArray[cur]);			
+		while (cur < this.asArray.length) {
+			finishEvents =[this.asArray[cur]];
 			cur++;
+			while (cur < this.asArray.length -1 && !this.asArray[cur]._t.isAfter(finishEvents[0]._t)) {
+				finishEvents.push(this.asArray[cur]);			
+				cur++;
+			}
+			this.intervals.push(new NetVisInterval(startEvents, finishEvents));
+			startEvents = finishEvents;
+			console.log('now moving on with ', cur, ' and ', startEvents);
 		}
-		this.intervals.push(new NetVisInterval(startEvents, finishEvents));
 	};
 
 
