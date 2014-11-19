@@ -21,6 +21,12 @@ function NetVis(DOMelement) {
 		self._selected = self;
 		self.Render();
 	};
+
+
+	self.updateAll = function() {
+		this.Nodes.updateAll();
+		this.history.updateAll();
+	};
 }
 
 

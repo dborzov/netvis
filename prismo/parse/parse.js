@@ -23,6 +23,5 @@ NetVis.prototype.parse = function(srcJSON) {
 
 	}
 
-	this.Nodes.updateAll();
-
+	this.updateAll();
 };
