@@ -1,6 +1,10 @@
 $(function() {
-  var demo = new NetVis(),
+
+  var Settings = {}, 
+    demo = new NetVis(Settings),
     SrcURL="example/earth.json";
+
+  $('#history').rangeslider();
 
 
   $("#reset-positions").click(demo.resetPositions);

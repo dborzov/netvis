@@ -1,9 +1,11 @@
 // NetVis defines global object NetVis that wraps up everything else 
 
 // constructor for NetVis class
-function NetVis(DOMelement) {
+function NetVis(Options) {
 	var self = this;
-	self._topologyPanel = DOMelement || "#chart";
+	self._topologyPanel = Options.topologyPanel || "#chart";
+	self._historyPanel = Options.historyPanel || "#history";
+
 	self.config = {
 		nodeDefaultDistance: 30,
 		nodeDefaultRadius: 10

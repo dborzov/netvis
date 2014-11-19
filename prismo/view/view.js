@@ -130,4 +130,8 @@ NetVis.prototype.Render = function() {
 
     rows.filter(function(d) {return d.obj;}).append("td").append("a").text(function(d) {return "more.."; })
         .on("click", function(d) {self._selected = d.value; self.Render();});
+
+
+
+     // Render time-controls panel
 };

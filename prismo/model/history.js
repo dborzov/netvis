@@ -63,7 +63,6 @@ NetVisHistory = function() {
 			}
 			this.intervals.push(new NetVisInterval(startEvents, finishEvents));
 			startEvents = finishEvents;
-			console.log('now moving on with ', cur, ' and ', startEvents);
 		}
 	};
 
@@ -72,7 +71,6 @@ NetVisHistory = function() {
 	this.loadEvent({"tag":"end"},moment("3000-01-01"));	
 	this.loadEvent({"tag":"start"},moment("1970-01-01"));	
 	this.updateAll();
-
 
 
 };
