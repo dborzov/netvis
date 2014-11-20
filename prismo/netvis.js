@@ -22,7 +22,7 @@ function NetVis(Options) {
 	self.resetPositions = function() {
 		self.Nodes.resetPositions();
 		self._selected = self;
-		self.Render();
+		self.render();
 	};
 
 
