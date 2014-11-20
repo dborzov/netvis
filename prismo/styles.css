@@ -70,6 +70,12 @@ line.message {
 	stroke-width:5.5px;
 }
 
+line.messageAnimation {
+	stroke:#880077; 
+	stroke-width:9.5px;
+}
+
+
 line.message:hover {
 	stroke:black; 
 	stroke-width:7.5px;

@@ -17,6 +17,7 @@ function NetVisView() {
 }
 
 NetVis.prototype.initView = function() {
+	var self = this;
      // Render time-controls panel
      $("#history")
      	.attr("min",1)
@@ -29,6 +30,8 @@ NetVis.prototype.initView = function() {
        	$('#timestamp').html(value);
        }
      });
+
+
      this.render();
 };
 
@@ -68,23 +71,42 @@ NetVis.prototype.render = function() {
 		.on("click",function(d) { self._selected = d; self.render();})
 		.attr('class','message');
 
+	messagesAnimation = canvas.selectAll('line.messageAnimation').data(self.messages.asArray)
+		.enter().append('line')
+		.on("click",function(d) { self._selected = d; self.render();})
+		.attr('class','messageAnimation');
+
 	nodes = canvas.selectAll("circle.node").data(self.Nodes.asArray)
 		.enter().append("circle")
 	    .on("click",function(d) { self._selected = d; self.render();})
 	    .attr('class','node');
 
-	var syncPositions = function() {
+	syncPositions = function() {
 		messages
 		    .attr("x1", function(d) {return d.source._xAbs;})
 		    .attr("y1", function(d) {return d.source._yAbs;})
 		    .attr("x2", function(d) {return d.destination._xAbs;})
 		    .attr("y2", function(d) {return d.destination._yAbs;});
 
+		messagesAnimation
+		    .attr("x1", function(d) {return d.source._xAbs;})
+		    .attr("y1", function(d) {return d.source._yAbs;})
+		    .attr("x2", function(d) {return d.source._xAbs + d._p*(d.destination._xAbs - d.source._xAbs);})
+		    .attr("y2", function(d) {return d.source._yAbs + d._p*(d.destination._yAbs - d.source._yAbs);});
+
+
 		return	nodes
 		    .attr("cx", function(d) {return d._xAbs;})
 		    .attr("cy", function(d) {return d._yAbs;});
 	};
 
+	d3.timer.flush();
+    d3.timer(function() {
+     	self.messages.asArray.forEach(function(el){
+     		el._p = (el._p + 0.003) % 1.0;
+     	});
+     	syncPositions();
+     });
 	
 	syncPositions()
 	    .attr("r",self.config.nodeDefaultRadius)
