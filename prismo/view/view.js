@@ -27,12 +27,14 @@ NetVis.prototype.initView = function() {
      $('#history').rangeslider({
        polyfill: false,
        onSlideEnd: function(position, value) {
+       	self._selected = self.history.intervals[value -1];
        	$('#timestamp').html(value);
+		self.render();       	
        }
      });
 
 
-     this.render();
+     self.render();
 };
 
 
@@ -103,7 +105,7 @@ NetVis.prototype.render = function() {
 	d3.timer.flush();
     d3.timer(function() {
      	self.messages.asArray.forEach(function(el){
-     		el._p = (el._p + 0.003) % 1.0;
+     		el._p = (el._p + 0.001) % 1.0;
      	});
      	syncPositions();
      });
