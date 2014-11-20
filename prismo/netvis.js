@@ -28,6 +28,7 @@ function NetVis(Options) {
 
 	self.updateAll = function() {
 		this.Nodes.updateAll();
+		this.messages.updateAll();
 		this.history.updateAll();
 	};
 }
