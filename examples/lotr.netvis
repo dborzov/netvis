@@ -1,20 +1,20 @@
 [
 	{
 		"time": "2014-11-12T11:34:01.077817100Z",
-		"loggerID":"QmdqaPCyuyAD2DNGGVTEdUmH33sBF62YpSM7oWi1CoCkm8",
+		"loggerID":"Gandalf",
 		"level": "info",
 		"event":"nodeEntered",
 		"name": "Gandalf"
 	},
 	{
 		"time": "2014-11-13T11:34:01.477817180Z",
-		"loggerID":"QmdqaPCyuyAD2DNGGVTEdUmH33sBF62YpSM7oWi1CoCkm8",
+		"loggerID":"Gandalf",
 		"level": "info",
 		"event":"messageSent",
 		"destinationNode": "Rivendell, the house of Elrond",
 		"message":
 		{
-				"request_id": "c655d844aed528caabfad155408ee5832ba64d78",
+				"request_id": "Gandalf request",
 				"time": "2014-11-12T11:34:01.477817180Z",
 				"protocol": "IPFS 0.1",
 				"type": "join",
@@ -30,7 +30,7 @@
 		"destinationNode": "Rivendell, the house of Elrond",
 		"message":
 		{
-				"request_id": "c655d844aed528caabfad155408ee5832ba64d78",
+				"request_id": "Gandalf request",
 				"time": "2014-11-12T11:34:01.477817180Z",
 				"protocol": "IPFS 0.1",
 				"type": "join",
@@ -46,7 +46,7 @@
 		"destinationNode": "Legolas",
 		"message":
 		{
-				"request_id": "Legolas Message",
+				"request_id": "Legolas Request",
 				"time": "2014-11-12T11:34:01.477817180Z",
 				"protocol": "IPFS 0.1",
 				"type": "join",
@@ -63,7 +63,7 @@
 		"destinationNode": "Boromir",
 		"message":
 		{
-				"request_id": "Boromir Message",
+				"request_id": "Boromir Request",
 				"time": "2014-11-12T11:34:01.477817180Z",
 				"protocol": "IPFS 0.1",
 				"type": "join",
@@ -87,9 +87,24 @@
 		}
 	},
 
-
 	{
 		"time": "2014-11-18T11:34:01.477817180Z",
+		"loggerID":"Gimli",
+		"level": "info",
+		"event":"messageReceived",
+		"destinationNode": "Gimli",
+		"message":
+		{
+				"request_id": "Gimli Request",
+				"time": "2014-11-12T11:34:01.477817180Z",
+				"protocol": "IPFS 0.1",
+				"type": "join",
+				"contents": "Sup, Gimli!  -Elrond"
+		}
+	},
+
+	{
+		"time": "2014-11-19T11:34:01.477817180Z",
 		"loggerID":"Gimli",
 		"level": "info",
 		"event":"messageSent",
