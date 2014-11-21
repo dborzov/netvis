@@ -7,7 +7,7 @@ NetVisMessages = function() {
 
 	self.updateAll = function() {
 		for (var i=0; i< self.asArray.length; i++) {
-			self.asArray[i]._p = 0.3; // _p goes from 0 to 100 to animate message direction
+			self.asArray[i]._p = Math.random(); // _p goes from 0 to 100 to animate message direction
 		}
 	};
 };
