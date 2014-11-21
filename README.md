@@ -1,6 +1,6 @@
 NetVis
 ======
-( you can also start with [the showcasing page](http://dborzov.github.io/netVis.))
+( you can also start with [the showcasing page](http://dborzov.github.io/netVis).)
 
 NetVis is a highly customizable javascript framework for building interactive network visualizations:
 
