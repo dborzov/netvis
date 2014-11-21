@@ -21,6 +21,13 @@ NetVisInterval = function(startEvents, endEvents, prevInterval) {
 		switch (event.event) {
 			case "messageSent":
 				this.messages.push(event.message);
+				break;
+			case "messageReceived":
+				for(var j = this.messages.length - 1; j >= 0; j--) {
+				    if(this.messages[j].id === event.message.id) {
+				       this.messages.splice(j, 1);
+				    }
+				}				
 		}
 	}
 };
