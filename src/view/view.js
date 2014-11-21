@@ -70,12 +70,12 @@ NetVis.prototype.render = function() {
 		.attr("class", "contour");
 
 
-	messages = canvas.selectAll('line.message').data(self.messages.asArray)
+	messages = canvas.selectAll('line.message').data(self.selectedTimeInterval.messages)
 		.enter().append('line')
 		.on("click",function(d) { self._selected = d; self.render();})
 		.attr('class','message');
 
-	messagesAnimation = canvas.selectAll('line.messageAnimation').data(self.messages.asArray)
+	messagesAnimation = canvas.selectAll('line.messageAnimation').data(self.selectedTimeInterval.messages)
 		.enter().append('line')
 		.on("click",function(d) { self._selected = d; self.render();})
 		.attr('class','messageAnimation');
