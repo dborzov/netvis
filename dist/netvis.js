@@ -2,7 +2,7 @@ $(function() {
 
   var Settings = {}, 
     demo = new NetVis(Settings),
-    SrcURL="example/earth.json";
+    SrcURL="examples/lotr.netvis";
 
   $('#history').rangeslider();
 
@@ -91,8 +91,10 @@ NetVisHistory = function() {
 			return;
 		}
 		this.intervals = [];
+		var curInterval = 0;
 
-		// all events happenning at the same time
+		// sorting all the events by happenning at the same timestamps
+		// and making time interval instances
 		cur = 0;
 		startEvents = [this.asArray[cur]];
 		cur ++;
@@ -108,8 +110,15 @@ NetVisHistory = function() {
 				finishEvents.push(this.asArray[cur]);			
 				cur++;
 			}
-			this.intervals.push(new NetVisInterval(startEvents, finishEvents));
+
+			curInterval = new NetVisInterval(startEvents, finishEvents, curInterval);
+			this.intervals.push(curInterval);
 			startEvents = finishEvents;
+		}
+
+
+		if (this.intervals) {
+			this.selectedTimeInterval = this.intervals[0]; 
 		}
 	};
 
@@ -124,13 +133,27 @@ NetVisHistory = function() {
 
 
 
-NetVisInterval = function(startEvents, endEvents) {
+NetVisInterval = function(startEvents, endEvents, prevInterval) {
 	this.startEvents = startEvents;
 	this.endEvents = endEvents;
 	this._starts = startEvents[0]._t; // as momentjs object
 	this._ends = endEvents[0]._t; // as momentjs object
 	this.starts = this._starts.toISOString(); // as ISO timestamp
 	this.ends = this._ends.toISOString();
+
+	if (prevInterval) {
+		this.messages = prevInterval.messages.slice(0); 	
+	} else {
+		this.messages = [];
+	}
+
+	for(var i=0; i< this.startEvents.length; i++) {
+		var event = this.startEvents[i]; 
+		switch (event.event) {
+			case "messageSent":
+				this.messages.push(event.message);
+		}
+	}
 };/////////////////////////////////////////////////////////////// NetVis.Messages handles network's messages that nodes communicate with
 
 
@@ -140,7 +163,7 @@ NetVisMessages = function() {
 
 	self.updateAll = function() {
 		for (var i=0; i< self.asArray.length; i++) {
-			self.asArray[i]._p = 0.3; // _p goes from 0 to 100 to animate message direction
+			self.asArray[i]._p = Math.random(); // _p goes from 0 to 100 to animate message direction
 		}
 	};
 };/////////////////////////////////////////////////////////////// Define network node model and handlers
@@ -200,6 +223,10 @@ function NetVis(Options) {
 		this.Nodes.updateAll();
 		this.messages.updateAll();
 		this.history.updateAll();
+
+		if (this.history.intervals) {
+			this.selectedTimeInterval = this.history.intervals[0]; 
+		}
 	};
 }
 
@@ -285,13 +312,15 @@ NetVis.prototype.initView = function() {
      // Render time-controls panel
      $("#history")
      	.attr("min",1)
-     	.attr("max",this.history.intervals.length);
+     	.attr("max",this.history.intervals.length)
+     	.val(1);
 
      $('#history').rangeslider('destroy');
      $('#history').rangeslider({
        polyfill: false,
        onSlideEnd: function(position, value) {
-       	self._selected = self.history.intervals[value -1];
+       	self.selectedTimeInterval = self.history.intervals[value -1];
+       	self._selected = self.selectedTimeInterval;
        	$('#timestamp').html(value);
 		self.render();       	
        }

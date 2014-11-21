@@ -44,6 +44,7 @@ NetVisHistory = function() {
 			return;
 		}
 		this.intervals = [];
+		var curInterval = 0;
 
 		// sorting all the events by happenning at the same timestamps
 		// and making time interval instances
@@ -62,7 +63,9 @@ NetVisHistory = function() {
 				finishEvents.push(this.asArray[cur]);			
 				cur++;
 			}
-			this.intervals.push(new NetVisInterval(startEvents, finishEvents));
+
+			curInterval = new NetVisInterval(startEvents, finishEvents, curInterval);
+			this.intervals.push(curInterval);
 			startEvents = finishEvents;
 		}
 
