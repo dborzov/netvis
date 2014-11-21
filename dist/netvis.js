@@ -152,6 +152,13 @@ NetVisInterval = function(startEvents, endEvents, prevInterval) {
 		switch (event.event) {
 			case "messageSent":
 				this.messages.push(event.message);
+				break;
+			case "messageReceived":
+				for(var j = this.messages.length - 1; j >= 0; j--) {
+				    if(this.messages[j].id === event.message.id) {
+				       this.messages.splice(j, 1);
+				    }
+				}				
 		}
 	}
 };/////////////////////////////////////////////////////////////// NetVis.Messages handles network's messages that nodes communicate with
@@ -252,6 +259,9 @@ NetVis.prototype.parse = function(srcJSON) {
 			case "messageSent":
 				this._parseMessageSent(srcJSON[i]);
 				break;
+			case "messageReceived":
+				this._parseMessageReceived(srcJSON[i]);
+				break;
 			default:
 				console.log("Event type ",srcJSON[i].event, " not supported");
 		}
@@ -260,6 +270,27 @@ NetVis.prototype.parse = function(srcJSON) {
 
 	this.updateAll();
 };
+/////////////////////////////////////////////////////////////// parseMessageReceived.js
+
+NetVis.prototype._parseMessageReceived = function(src) {
+	// sanity check validation
+	// check if loggerID node was initialized
+	if (!src.loggerID || !src.destinationNode){
+		return 'parseMessageSent() no logger ID or destinationNode ID provided, too broken';
+	}
+
+	var r = this.messages.load(src.message, src.message.request_id);
+	if (typeof(r) === "string") {
+		console.log('no luck with ', r);
+		return r;
+	}
+
+	src.message = r;
+	var e = this.history.loadEvent(src, moment(src.time));
+
+	return r;
+};
+
 /////////////////////////////////////////////////////////////// parseMessage.js
 
 NetVis.prototype._parseMessageSent = function(src) {
@@ -361,12 +392,12 @@ NetVis.prototype.render = function() {
 		.attr("class", "contour");
 
 
-	messages = canvas.selectAll('line.message').data(self.messages.asArray)
+	messages = canvas.selectAll('line.message').data(self.selectedTimeInterval.messages)
 		.enter().append('line')
 		.on("click",function(d) { self._selected = d; self.render();})
 		.attr('class','message');
 
-	messagesAnimation = canvas.selectAll('line.messageAnimation').data(self.messages.asArray)
+	messagesAnimation = canvas.selectAll('line.messageAnimation').data(self.selectedTimeInterval.messages)
 		.enter().append('line')
 		.on("click",function(d) { self._selected = d; self.render();})
 		.attr('class','messageAnimation');
