@@ -1,61 +1,100 @@
-prismo
+NetVis
 ======
+( you can also start with [the showcasing page](http://dborzov.github.io/netVis.))
 
-An attempt at Network Sim Vis Tool: https://github.com/jbenet/random-ideas/issues/30
+NetVis is a highly customizable javascript framework for building interactive network visualizations:
 
-Netvis format: https://gist.github.com/jbenet/41092a3a55c44b9ed2c5
+* Visualize any network activity by describing your network events in a straightforward JSON-based NetVis format detailing network nodes, events and messages. 
 
-A visualizer of protocol traces to observe, debug, learn, ... admire... networks. Our main use case is for IPFS (ipfs.io, github.com/jbenet/ipfs) and Filecoin (filecoin.io). 
-Rough scheme:
+* Convert your server logs / network trace files to NetVis format and quickly visualize them.
+Generic nature of the tool means support for visualizing communication in any existing protocols, including IP, TCP, HTTP, TSL, BitCoin or IPFS as well as a pefrect tool for  developing new network protocols. 
 
-*    protocols output traces following a specific format detailing nodes + events
-*    protocols can optionally specify viz layouts (e.g. DHT address ring vis, or force graph (based on latency))
-*    d3 program consumes traces (could be live streams) in json and runs the simulation
-*    simulation playback controls (play/pause/ffwd/rwind/speed)
+* Browse and traverse your network model with the d3-based graph visualization and time playback controls (play/pause/ffwd/rwind/speed) for events.
 
-The repo is under heavy development - nothing works, nothing's implemented yet.
+* Customize the looks and appearance easily by overwriting the default View handlers in plain javascript. NetVis maintains the form and function customization separate. Specifying custom colors and tags for nodes and messages, or things like depicting the nodes on the georgaphical map is super simple.
 
-General design
+
+NetVis is built by the IPFS (ipfs.io, github.com/jbenet/ipfs) and Filecoin (filecoin.io) team. 
+
+What can NetVis do for me?
+-------------
+
+Here is an example of the use case:
+
+1. Live nodes implementing protocols run, generating a real sequence of events. They store this sequence in one or many log files. 
+2. The log files are consolidated into one netvis history.
+3. The history is fed into a simulator, which runs the visualization.
+
+This means that the live nodes / producers need not emit netvis exactly; we can have a processing step in the pipeline that converts whatever the native protocol logs are into netvis. (for example, combining two differet entries, announcing an outgoing + incoming packet, into one single netvis message entry)
+
+And it also means that simulators need not ingest netvis directly, but can also be processed to fit their purposes better. This makes netvis a middle-format that seeks to ensure all the necessary elements are present, and that both the producer and consumer programs handle them correctly.
+
+
+netvis pipeline:
+
+    live nodes --> logs --> netvis logs --> simulator input --> simulator
+
+
+
+NetVis format
 ------------
+See the [specififcation draft](netvis.md).
 
-Here is the tentative general design:
-* It can follow the MVC(Model-View-Controller) pattern. The model part would store the state of the network with instances of Network Nodes, Messages/Packets they exchange, Connections and the Time Arrow to resolve and depict Events. So that we get:
-```javascript
-     > Prismo.Nodes.get("mars.i.ipfs.io")
-     {
-             name: "mars.i.ipfs.io",
-             ip: "localhost",
-            port:"8080",
-            protocol:"HTTP 1.1"
-     }
-     > Prismo.Packets.get("df45-34fg")
-     {
-        "header":"GET /hi",
-        "body": "is there anybody in there?"
-     }
+Here is an example of a NetVis file:
+
+```json
+  [
+    {
+      "time": "2014-11-12T11:34:01.077817100Z",
+      "loggerID":"QmdqaPCyuyAD2DNGGVTEdUmH33sBF62YpSM7oWi1CoCkm8",
+      "level": "info",
+      "event":"nodeEntered",
+      "name": "Earth"
+    },
+
+    {
+      "time": "2014-11-12T11:34:01.477817180Z",
+      "loggerID":"QmdqaPCyuyAD2DNGGVTEdUmH33sBF62YpSM7oWi1CoCkm8",
+      "level": "info",
+      "event":"messageSent",
+      "destinationNode": "Qmd9uGaZ6vKTES5nezVyCZDP2zJzdii2EXWiCbyGYq1tZX",
+      "message":
+      {
+          "request_id": "c655d844aed528caabfad155408ee5832ba64d78",
+          "time": "2014-11-12T11:34:01.477817180Z",
+          "protocol": "IPFS 0.1",
+          "type": "join",
+          "contents": "{\"body\":\"Hello Jupiter!This is Earth, bow to our might!\"}"
+      }
+    },
+
+    {
+      "time": "2014-11-12T11:34:02.000000003Z",
+      "loggerID":"QmdqaPCyuyAD2DNGGVTEdUmH33sBF62YpSM7oWi1CoCkm8",
+      "level": "info",
+      "event":"messageReceived",
+      "sourceNode": "Qmd9uGaZ6vKTES5nezVyCZDP2zJzdii2EXWiCbyGYq1tZX",
+      "message":
+      {
+          "request_id": "a001c4d79b323808729ecfe673d84048e1725b39a96049dce2241dbd11d6abf9",
+          "time": "2014-11-12T11:34:01.900000003Z",
+          "protocol": "IPFS 0.1",
+          "type": "lol",
+          "contents": "lol wat"
+      }
+    }
+  ]
+
 ```
-or something like that.
-* The Controller Part would include parsers for the network traces that would update the model state accordingly. So you can feed it JSONs from external requests and see the model change accordingly. Or the user can interact with the visualization using page's UI and these actions would be converted into the same message JSON format and fed to the controller (it will follow `Message` format @jbenet suggested above). Something like that:
-```javascript
-   var event = {
-       "type": "packet sent",
-       "protocol":"HTTP 1.1",
-       "recepient_ip":"localhost:8080",
-       ...
-   };
-```
-* The View part would render model into the d3.js-based visualization. It would include all the styling, selections and UI part handlers. 
 
-I think the advantages of this approach are:
-* The 3 separate domains (model, controller, view) are logically separate. So you can easily interchange them to support anyhting else  (like you can, say, rewrite View for shell and run if off Node.js)
-*  easy generalization for various protocols (you just add parsers to the controllers to include your format of network's output traces)
+We see an example of simple network activity where a node "Earth" sends a message to "Jupiter" and get a response. 
 
-Install
+Note that while the Earth node is defined with a `nodeEntered` event, Jupiter is only introduced implicitely, by being mentioned. That is acceptable, NetVis tries to deduce things as much as possible. 
+
+
+Other
 ----------------
-To build the library install `grunt-cli` and run:
-```
-    $ grunt 
-```
-This will concatinate all the js files into a single library file and put the result into `./dist` directory along with `index.html` for entry point. It will also watch all the source files for changes and update everything when needed.
+If you are considering contributing, or just want to see how things work internally, awesome! Please start by reading [DEVELOPING.md](DEVELOPING.md)
 
-We use `bower` to manage dependencies (install `d3.js`, `moment.js` and many others).
+
+MIT license.
