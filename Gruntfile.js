@@ -11,15 +11,25 @@ module.exports = function(grunt) {
 		  },
 		  dist: {
 		    // the files to concatenate
-		    src: ['<%= pkg.name %>/**/*.js', '<%= pkg.name %>/*.js'],
+		    src: ['src/**/*.js', 'src/*.js'],
 		    // the location of the resulting JS file
 		    dest: 'dist/<%= pkg.name %>.js'
 		  }
 		},
 
+		// copy css
+		copy: {
+		  main: {
+		    files: [
+		      // includes files within path
+		      {expand: true, cwd: 'src/', src: '*.css', dest: 'dist/', filter: 'isFile'}
+		    ]
+		  }
+		},
+
 		// lint shit with hint
 	    jshint: {
-	      files: ['<%= pkg.name %>/**/*.js'],
+	      files: ['src/**/*.js', 'src/*.js'],
 	      options: {
 	        // options here to override JSHint defaults
 	        globals: {
@@ -34,7 +44,7 @@ module.exports = function(grunt) {
 		// watch for any changes and rebuild files live
 		watch: {
 		  scripts: {
-		    files: '<%= pkg.name %>/**/*.js',
+		    files: 'src/**/*.js',
 		    tasks: ['jshint', 'concat'],
 		    options: {
 		      livereload: true,
@@ -54,12 +64,13 @@ module.exports = function(grunt) {
 		   }
 		}
 	});
+	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-wiredep');
 
 
-	grunt.registerTask('default', ['wiredep','jshint','concat']);
+	grunt.registerTask('default', ['wiredep','jshint','concat', 'copy']);
 
 }

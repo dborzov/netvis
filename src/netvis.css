@@ -1,0 +1,87 @@
+/* General UI Styling */
+
+
+.container {
+	margin-top: 20px;
+}
+
+.history-panel {
+	margin-top: 20px;
+}
+
+.properties-panel {
+	margin-left: 20px;
+}
+
+.properties-table {
+	margin-top: 20px;
+}
+
+.properties-column {
+	max-width: 170px;
+	word-wrap: break-word;
+}
+
+#chart {
+	border: 1px solid grey;
+	min-height: 700px;
+
+}
+
+.error-alert {
+	display:none;
+}
+
+/* Topology Panel Canvas Styling */
+
+
+/* nodes */
+circle.contour {
+	fill-opacity:0.02;
+}
+
+
+circle.node {
+	fill:steelblue;
+	stroke:black; 
+	stroke-width:0.5px;
+}
+
+circle.node:hover {
+	fill:#9999ff;
+}
+
+
+circle.node.selected {
+	fill:#aa88ff;
+	stroke:red; 
+	stroke-width:3px;
+}
+
+circle.node.selected:hover {
+	fill:#aa99ff;
+	stroke:red; 
+	stroke-width:6px;
+}
+
+/* messages */
+line.message {
+	stroke:#550077; 
+	stroke-width:5.5px;
+}
+
+line.messageAnimation {
+	stroke:#880077; 
+	stroke-width:9.5px;
+}
+
+
+line.message:hover {
+	stroke:black; 
+	stroke-width:7.5px;
+}
+
+line.message.selected {
+	stroke:red; 
+	stroke-width:12.0px;
+}
