@@ -1,0 +1,106 @@
+[
+	{
+		"time": "2014-11-12T11:34:01.077817100Z",
+		"loggerID":"QmdqaPCyuyAD2DNGGVTEdUmH33sBF62YpSM7oWi1CoCkm8",
+		"level": "info",
+		"event":"nodeEntered",
+		"name": "Gandalf"
+	},
+	{
+		"time": "2014-11-13T11:34:01.477817180Z",
+		"loggerID":"QmdqaPCyuyAD2DNGGVTEdUmH33sBF62YpSM7oWi1CoCkm8",
+		"level": "info",
+		"event":"messageSent",
+		"destinationNode": "Rivendell, the house of Elrond",
+		"message":
+		{
+				"request_id": "c655d844aed528caabfad155408ee5832ba64d78",
+				"time": "2014-11-12T11:34:01.477817180Z",
+				"protocol": "IPFS 0.1",
+				"type": "join",
+				"contents": "The ring is back!"
+		}
+	},
+
+	{
+		"time": "2014-11-14T11:34:01.477817180Z",
+		"loggerID":"Rivendell, the house of Elrond",
+		"level": "info",
+		"event":"messageReceived",
+		"destinationNode": "Rivendell, the house of Elrond",
+		"message":
+		{
+				"request_id": "c655d844aed528caabfad155408ee5832ba64d78",
+				"time": "2014-11-12T11:34:01.477817180Z",
+				"protocol": "IPFS 0.1",
+				"type": "join",
+				"contents": "The ring is back!"
+		}
+	},
+
+	{
+		"time": "2014-11-15T11:34:01.477817180Z",
+		"loggerID":"Rivendell, the house of Elrond",
+		"level": "info",
+		"event":"messageSent",
+		"destinationNode": "Legolas",
+		"message":
+		{
+				"request_id": "Legolas Message",
+				"time": "2014-11-12T11:34:01.477817180Z",
+				"protocol": "IPFS 0.1",
+				"type": "join",
+				"contents": "Legolas! The ring is back! Come over for a chat. - Love, Elrond"
+		}
+	},
+
+
+	{
+		"time": "2014-11-16T11:34:01.477817180Z",
+		"loggerID":"Rivendell, the house of Elrond",
+		"level": "info",
+		"event":"messageSent",
+		"destinationNode": "Boromir",
+		"message":
+		{
+				"request_id": "Boromir Message",
+				"time": "2014-11-12T11:34:01.477817180Z",
+				"protocol": "IPFS 0.1",
+				"type": "join",
+				"contents": "Hey Boromir! How are things? Could you come by real quick? -Elrond"
+		}
+	},
+
+	{
+		"time": "2014-11-17T11:34:01.477817180Z",
+		"loggerID":"Rivendell, the house of Elrond",
+		"level": "info",
+		"event":"messageSent",
+		"destinationNode": "Gimli",
+		"message":
+		{
+				"request_id": "Gimli Request",
+				"time": "2014-11-12T11:34:01.477817180Z",
+				"protocol": "IPFS 0.1",
+				"type": "join",
+				"contents": "Sup, Gimli!  -Elrond"
+		}
+	},
+
+
+	{
+		"time": "2014-11-18T11:34:01.477817180Z",
+		"loggerID":"Gimli",
+		"level": "info",
+		"event":"messageSent",
+		"destinationNode": "Rivendell, the house of Elrond",
+		"message":
+		{
+				"request_id": "Gimli Response",
+				"time": "2014-11-12T11:34:01.477817180Z",
+				"protocol": "IPFS 0.1",
+				"type": "join",
+				"contents": "Go away, Elrond, you are drunk"
+		}
+	}
+]

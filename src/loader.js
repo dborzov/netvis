@@ -2,7 +2,7 @@ $(function() {
 
   var Settings = {}, 
     demo = new NetVis(Settings),
-    SrcURL="example/earth.json";
+    SrcURL="examples/lotr.netvis";
 
   $('#history').rangeslider();
 
