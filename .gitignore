@@ -15,8 +15,7 @@ coverage
 
 # bower stores installed things here
 bower_components
-dist
-aaa 
+ 
 
 
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)

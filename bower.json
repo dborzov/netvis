@@ -1,7 +1,7 @@
 {
-  "name": "prismo",
+  "name": "NetVis",
   "version": "0.1.0",
-  "homepage": "https://github.com/dborzov/prismo",
+  "homepage": "https://github.com/dborzov/NetVis",
   "authors": [
     "Peter Borzov <tihoutrom@gmail.com>"
   ],

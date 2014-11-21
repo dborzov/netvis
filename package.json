@@ -1,5 +1,5 @@
 {
-  "name": "prismo",
+  "name": "netvis",
   "version": "0.1.0",
   "description": "visualize protocol traces for networks",
   "dependencies": {
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/dborzov/prismo"
+    "url": "https://github.com/dborzov/NetVis"
   },
   "keywords": [
     "visualization",
@@ -26,7 +26,7 @@
   "author": "Peter Borzov",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/dborzov/prismo/issues"
+    "url": "https://github.com/dborzov/NetVis/issues"
   },
-  "homepage": "https://github.com/dborzov/prismo"
+  "homepage": "https://github.com/dborzov/NetVis"
 }
