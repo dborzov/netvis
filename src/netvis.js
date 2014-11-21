@@ -30,6 +30,10 @@ function NetVis(Options) {
 		this.Nodes.updateAll();
 		this.messages.updateAll();
 		this.history.updateAll();
+
+		if (this.history.intervals) {
+			this.selectedTimeInterval = this.history.intervals[0]; 
+		}
 	};
 }
 

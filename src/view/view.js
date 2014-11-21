@@ -21,13 +21,15 @@ NetVis.prototype.initView = function() {
      // Render time-controls panel
      $("#history")
      	.attr("min",1)
-     	.attr("max",this.history.intervals.length);
+     	.attr("max",this.history.intervals.length)
+     	.val(1);
 
      $('#history').rangeslider('destroy');
      $('#history').rangeslider({
        polyfill: false,
        onSlideEnd: function(position, value) {
-       	self._selected = self.history.intervals[value -1];
+       	self.selectedTimeInterval = self.history.intervals[value -1];
+       	self._selected = self.selectedTimeInterval;
        	$('#timestamp').html(value);
 		self.render();       	
        }
