@@ -1,5 +1,5 @@
 {
-  "name": "netvis",
+  "name": "NetVis",
   "version": "0.1.0",
   "description": "visualize protocol traces for networks",
   "dependencies": {
