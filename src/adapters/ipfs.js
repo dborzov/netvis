@@ -7,25 +7,26 @@ NetVis.prototype.adapterIPFS = {
 	convert: function(IPFSlog, logger) {
 		var NetVisJSON = [];
 		entries = IPFSlog.split("\n");
-		for (var i =-; i< entries.length; i++) {
+		for (var i =0; i< entries.length; i++) {
 			try{
-				entry = JSON.parse(entries[i])
+				entry = JSON.parse(entries[i]);
 			}
 			catch(err){
-				logger.error("NetVis Adapter ", this.name, ": failure to parse \"", entries[i],"\" as valid JSON")
+				logger.error("NetVis Adapter ", this.name, ": failure to parse \"", entries[i],"\" as valid JSON");
 				continue;
 			}
 
 			if (entry.event === "sentMessage") {
-				entry.loggerID = entry.localPeer.id
-				delete entry.localPeer
-				entry.destinationNode = entry.remotePeer.id
+				entry.loggerID = entry.localPeer.id;
+				delete entry.localPeer;
+				entry.destinationNode = entry.remotePeer.id;
+				delete entry.remotePeer;
 			}
 
 			NetVisJSON.push(entry);
 		}
 	}  
-} 
+};
 
 
 
