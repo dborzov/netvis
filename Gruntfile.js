@@ -59,7 +59,7 @@ module.exports = function(grunt) {
 		    // Point to the files that should be updated when
 		    // you run `grunt wiredep`
 		    src: [
-		      'index.html'
+		      'examples/lotr/index.html'
 		     ]
 		   }
 		}

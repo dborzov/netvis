@@ -15,6 +15,7 @@ coverage
 
 # bower stores installed things here
 bower_components
+examples/lotr/dist
  
 
 

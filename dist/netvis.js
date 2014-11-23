@@ -1,24 +1,38 @@
-$(function() {
-
-  var Settings = {}, 
-    demo = new NetVis(Settings),
-    SrcURL="examples/lotr.netvis";
-
-  $('#history').rangeslider();
+// adapterIPFS implements
+// NetVis adapter interface for IPFS log files
 
 
-  $("#reset-positions").click(demo.resetPositions);
-  d3.json(SrcURL, function(error, json) {
-  	if (error) {
-  		demo.View.Logger.error("Failure loading "+SrcURL+": "+ error.statusText);
-  		return;
-  	}
-  	demo.View.Logger.info("Succesfully resolved " + SrcURL);
-    demo.parse(json);
-    demo.View.Logger.info(demo);
-    demo.initView();
-  });
-});/////////////////////////////////////////////////////////////// BaseNetVisModel contains common elements shared among all the NetVis models
+NetVis.prototype.adapterIPFS = {
+	name: "IPFS",
+	convert: function(IPFSlog, logger) {
+		var NetVisJSON = [];
+		entries = IPFSlog.split("\n");
+		for (var i =0; i< entries.length; i++) {
+			try{
+				entry = JSON.parse(entries[i]);
+			}
+			catch(err){
+				logger.error("NetVis Adapter ", this.name, ": failure to parse \"", entries[i],"\" as valid JSON");
+				continue;
+			}
+
+			if (entry.event === "sentMessage") {
+				entry.loggerID = entry.localPeer.id;
+				delete entry.localPeer;
+				entry.destinationNode = entry.remotePeer.id;
+				delete entry.remotePeer;
+			}
+
+			NetVisJSON.push(entry);
+		}
+	}  
+};
+
+
+
+
+
+/////////////////////////////////////////////////////////////// BaseNetVisModel contains common elements shared among all the NetVis models
 // NetVis.nodes, NetVis.messages, NetVis.history inherit from BaseNetVisModel
 
 BaseNetVisModel = function() {
