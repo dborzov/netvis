@@ -38,5 +38,13 @@ function NetVis(Options) {
 }
 
 
+// NetVis can be imported as node.js module
+// (currently used for testing)
+if (typeof module != 'undefined') {
+	module.exports = {
+		NetVis: NetVis
+	};
+}
+
 
 
