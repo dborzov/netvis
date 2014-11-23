@@ -8,13 +8,14 @@
     "grunt-contrib-copy": "^0.7.0",
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-contrib-watch": "^0.6.1",
-    "grunt-wiredep": "^1.9.0"
+    "grunt-wiredep": "^1.9.0",
+    "tap": "^0.4.13"
   },
   "devDependencies": {
     "grunt": "^0.4.5"
   },
   "scripts": {
-    "test": "test"
+    "test": "tap test/*.js"
   },
   "repository": {
     "type": "git",
