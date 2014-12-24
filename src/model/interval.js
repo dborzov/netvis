@@ -11,13 +11,15 @@ NetVisInterval = function(startEvents, endEvents, prevInterval) {
 	this.ends = this._ends.toISOString();
 
 	if (prevInterval) {
-		this.messages = prevInterval.messages.slice(0); 	
+		this.messages = prevInterval.messages.slice(0); // copying array instance
+		this.nodes = 	prevInterval.messages.slice(0);
 	} else {
 		this.messages = [];
+		this.nodes = [];
 	}
 
 	for(var i=0; i< this.startEvents.length; i++) {
-		var event = this.startEvents[i]; 
+		var event = this.startEvents[i];
 		switch (event.event) {
 			case "messageSent":
 				this.messages.push(event.message);
@@ -27,7 +29,7 @@ NetVisInterval = function(startEvents, endEvents, prevInterval) {
 				    if(this.messages[j].id === event.message.id) {
 				       this.messages.splice(j, 1);
 				    }
-				}				
+				}
 		}
 	}
 };

@@ -3,7 +3,7 @@
 
 NetVisHistory = function() {
 	BaseNetVisModel.apply(this); // History class inherits from baseModel
-	
+
 	this.loadEvent = function(obj, momentTime) {
 		obj._t = momentTime;
 		obj.time = momentTime.toISOString();
@@ -28,7 +28,7 @@ NetVisHistory = function() {
 		while (lowI < highI) {
 			cur = Math.floor((highI + lowI) /2);
 			if (this.asArray[cur]._t.isBefore(obj._t)) {
-				lowI = cur + 1;	
+				lowI = cur + 1;
 			} else {
 				highI = cur;
 			}
@@ -52,15 +52,16 @@ NetVisHistory = function() {
 		startEvents = [this.asArray[cur]];
 		cur ++;
 		while (cur < this.asArray.length -1 && !this.asArray[cur]._t.isAfter(startEvents[0]._t)) {
-			startEvents.push(this.asArray[cur]);			
+			startEvents.push(this.asArray[cur]);
 			cur++;
 		}
 
+		// traversing all simultanious events into events for interval boundaries
 		while (cur < this.asArray.length) {
 			finishEvents =[this.asArray[cur]];
 			cur++;
 			while (cur < this.asArray.length -1 && !this.asArray[cur]._t.isAfter(finishEvents[0]._t)) {
-				finishEvents.push(this.asArray[cur]);			
+				finishEvents.push(this.asArray[cur]);
 				cur++;
 			}
 
@@ -71,14 +72,14 @@ NetVisHistory = function() {
 
 
 		if (this.intervals) {
-			this.selectedTimeInterval = this.intervals[0]; 
+			this.selectedTimeInterval = this.intervals[0];
 		}
 	};
 
 
 	// add default time margin moments
-	this.loadEvent({"tag":"end"},moment("3000-01-01"));	
-	this.loadEvent({"tag":"start"},moment("1970-01-01"));	
+	this.loadEvent({"tag":"end"},moment("3000-01-01"));
+	this.loadEvent({"tag":"start"},moment("1970-01-01"));
 	this.updateAll();
 
 
