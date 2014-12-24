@@ -2,9 +2,10 @@
 
 
 NetVis.prototype._constructNetVisHistory = function() {
-	this.history = new BaseNetVisModel(this); // History class inherits from baseModel
+	var self = this;
+	self.history = new BaseNetVisModel(this); // History class inherits from baseModel
 
-	this.history.loadEvent = function(obj, momentTime) {
+	self.history.loadEvent = function(obj, momentTime) {
 		obj._t = momentTime;
 		obj.time = momentTime.toISOString();
 		// eventID to be unique and contain timestamp
@@ -37,7 +38,7 @@ NetVis.prototype._constructNetVisHistory = function() {
 	};
 
 
-	this.history.updateAll = function() {
+	self.history.updateAll = function() {
 		// create interval instances from events array
 		if (!this.asArray) {
 			// no events or not initialized
@@ -66,6 +67,14 @@ NetVis.prototype._constructNetVisHistory = function() {
 			}
 
 			curInterval = new NetVisInterval(startEvents, finishEvents, curInterval);
+			if (this.intervals.length === 0) {
+				console.log("Whoop-doop: ", self.Nodes.asArray[i]);
+				for(var i=0; i< self.Nodes.asArray.length; i++) {
+					if (self.Nodes.asArray[i].permanentNode) {
+						curInterval.nodes.push(self.Nodes.asArray[i]);
+					}
+				}
+			}
 			this.intervals.push(curInterval);
 			startEvents = finishEvents;
 		}
@@ -78,9 +87,9 @@ NetVis.prototype._constructNetVisHistory = function() {
 
 
 	// add default time margin moments
-	this.history.loadEvent({"tag":"end"},moment("3000-01-01"));
-	this.history.loadEvent({"tag":"start"},moment("1970-01-01"));
-	this.history.updateAll();
+	self.history.loadEvent({"tag":"end"},moment("3000-01-01"));
+	self.history.loadEvent({"tag":"start"},moment("1970-01-01"));
+	self.history.updateAll();
 
 
 };

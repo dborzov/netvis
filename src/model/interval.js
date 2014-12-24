@@ -12,7 +12,7 @@ NetVisInterval = function(startEvents, endEvents, prevInterval) {
 
 	if (prevInterval) {
 		this.messages = prevInterval.messages.slice(0); // copying array instance
-		this.nodes = 	prevInterval.messages.slice(0);
+		this.nodes = 	prevInterval.nodes.slice(0);
 	} else {
 		this.messages = [];
 		this.nodes = [];
