@@ -1,7 +1,7 @@
 // parse deserializes network trace files in NetVis format
 
 NetVis.prototype.parse = function(srcJSON) {
-	// jsonAdapter loads JSON in NetVis format   
+	// jsonAdapter loads JSON in NetVis format
 
 	if (typeof(srcJSON) !== 'object') {
 		return 'srcJSON needs to be a JSON object';
@@ -14,6 +14,9 @@ NetVis.prototype.parse = function(srcJSON) {
 		}
 
 		switch (srcJSON[i].event) {
+			case "nodeEntered":
+				this._parseNodeEntered(srcJSON[i]);
+				break;
 			case "messageSent":
 				this._parseMessageSent(srcJSON[i]);
 				break;
