@@ -11,7 +11,7 @@ NetVisNodes = function() {
 			if (typeof srcObject.permanentNode === 'undefined') {
 				srcObject.permanentNode = true;
 			}
-			superLoad(srcObject, assignID);
+			return superLoad(srcObject, assignID);
 		}
 	};
 

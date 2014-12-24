@@ -5,6 +5,8 @@ NetVis.prototype._parseNodeEntered = function(src) {
     "id": src.name,
     "permanentNode": false
   });
+
+  src.node = r;
   var e = this.history.loadEvent(src, moment(src.time));
   return r;
 };
