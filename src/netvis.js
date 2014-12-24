@@ -1,4 +1,4 @@
-// NetVis defines global object NetVis that wraps up everything else 
+// NetVis defines global object NetVis that wraps up everything else
 
 // constructor for NetVis class
 function NetVis(Options) {
@@ -14,11 +14,11 @@ function NetVis(Options) {
 
 	self.Nodes = new NetVisNodes();
 	self.messages = new NetVisMessages();
-	self.history = new NetVisHistory();
+	self._constructNetVisHistory();
 	self.View = new NetVisView();
 	self._selected = self; // _selected object's public attributes are shown at properties-table
 
-	
+
 	self.resetPositions = function() {
 		self.Nodes.resetPositions();
 		self._selected = self;
@@ -32,7 +32,7 @@ function NetVis(Options) {
 		this.history.updateAll();
 
 		if (this.history.intervals) {
-			this.selectedTimeInterval = this.history.intervals[0]; 
+			this.selectedTimeInterval = this.history.intervals[0];
 		}
 	};
 }
@@ -45,6 +45,3 @@ if (typeof module != 'undefined') {
 		NetVis: NetVis
 	};
 }
-
-
-

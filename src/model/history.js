@@ -1,10 +1,10 @@
 // Define history model and handlers
 
 
-NetVisHistory = function() {
-	BaseNetVisModel.apply(this); // History class inherits from baseModel
+NetVis.prototype._constructNetVisHistory = function() {
+	this.history = new BaseNetVisModel(this); // History class inherits from baseModel
 
-	this.loadEvent = function(obj, momentTime) {
+	this.history.loadEvent = function(obj, momentTime) {
 		obj._t = momentTime;
 		obj.time = momentTime.toISOString();
 		// eventID to be unique and contain timestamp
@@ -37,7 +37,7 @@ NetVisHistory = function() {
 	};
 
 
-	this.updateAll = function() {
+	this.history.updateAll = function() {
 		// create interval instances from events array
 		if (!this.asArray) {
 			// no events or not initialized
@@ -78,9 +78,9 @@ NetVisHistory = function() {
 
 
 	// add default time margin moments
-	this.loadEvent({"tag":"end"},moment("3000-01-01"));
-	this.loadEvent({"tag":"start"},moment("1970-01-01"));
-	this.updateAll();
+	this.history.loadEvent({"tag":"end"},moment("3000-01-01"));
+	this.history.loadEvent({"tag":"start"},moment("1970-01-01"));
+	this.history.updateAll();
 
 
 };
