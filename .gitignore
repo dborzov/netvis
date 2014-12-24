@@ -31,3 +31,6 @@ node_modules/
 
 # Users Environment Variables
 .lock-wscript
+
+# Mac OS X hidden files
+.DS\_Store
