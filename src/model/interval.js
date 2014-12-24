@@ -21,6 +21,9 @@ NetVisInterval = function(startEvents, endEvents, prevInterval) {
 	for(var i=0; i< this.startEvents.length; i++) {
 		var event = this.startEvents[i];
 		switch (event.event) {
+			case "nodeEntered":
+				this.nodes.push(event.node);
+				break;
 			case "messageSent":
 				this.messages.push(event.message);
 				break;

@@ -31,7 +31,7 @@ NetVis.prototype.initView = function() {
        	self.selectedTimeInterval = self.history.intervals[value -1];
        	self._selected = self.selectedTimeInterval;
        	$('#timestamp').html(value);
-		self.render();       	
+		self.render();
        }
      });
 
@@ -47,17 +47,17 @@ NetVis.prototype.render = function() {
 
 	self.Nodes.asArray.forEach(function(el) {
 		    	if (!el._xAbs) {
-		    		el._xAbs = el._x*width; 
+		    		el._xAbs = el._x*width;
 			    }
 		    	if (!el._yAbs) {
 			    	el._yAbs = el._y*width;
-		    	} 
+		    	}
 	});
 
 
-	
+
 	$(self._topologyPanel).empty();
-	canvas = d3.select(self._topologyPanel) 
+	canvas = d3.select(self._topologyPanel)
 		.append("svg")
 		.attr("width",$(self._topologyPanel).width())
 		.attr("height",$(self._topologyPanel).height());
@@ -80,7 +80,7 @@ NetVis.prototype.render = function() {
 		.on("click",function(d) { self._selected = d; self.render();})
 		.attr('class','messageAnimation');
 
-	nodes = canvas.selectAll("circle.node").data(self.Nodes.asArray)
+	nodes = canvas.selectAll("circle.node").data(self.selectedTimeInterval.nodes)
 		.enter().append("circle")
 	    .on("click",function(d) { self._selected = d; self.render();})
 	    .attr('class','node');
@@ -111,7 +111,7 @@ NetVis.prototype.render = function() {
      	});
      	syncPositions();
      });
-	
+
 	syncPositions()
 	    .attr("r",self.config.nodeDefaultRadius)
 	    .call(d3.behavior.drag()
@@ -157,7 +157,7 @@ NetVis.prototype.render = function() {
 	   if (key.charAt(0) === "_") {
 	   	// private attribute, ignoring
 	   	continue;
-	   }		   
+	   }
 	   attributes.push({"attr": key, "value":self._selected[key], "obj": typeof(self._selected[key]) == "object"});
 	}
 
@@ -174,5 +174,5 @@ NetVis.prototype.render = function() {
     rows.filter(function(d) {return d.obj;}).append("td").append("a").text(function(d) {return "more.."; })
         .on("click", function(d) {self._selected = d.value; self.render();});
 
-     	
+
 };
