@@ -1,38 +1,4 @@
-// adapterIPFS implements
-// NetVis adapter interface for IPFS log files
-
-
-NetVis.prototype.adapterIPFS = {
-	name: "IPFS",
-	convert: function(IPFSlog, logger) {
-		var NetVisJSON = [];
-		entries = IPFSlog.split("\n");
-		for (var i =0; i< entries.length; i++) {
-			try{
-				entry = JSON.parse(entries[i]);
-			}
-			catch(err){
-				logger.error("NetVis Adapter ", this.name, ": failure to parse \"", entries[i],"\" as valid JSON");
-				continue;
-			}
-
-			if (entry.event === "sentMessage") {
-				entry.loggerID = entry.localPeer.id;
-				delete entry.localPeer;
-				entry.destinationNode = entry.remotePeer.id;
-				delete entry.remotePeer;
-			}
-
-			NetVisJSON.push(entry);
-		}
-	}  
-};
-
-
-
-
-
-/////////////////////////////////////////////////////////////// BaseNetVisModel contains common elements shared among all the NetVis models
+// BaseNetVisModel contains common elements shared among all the NetVis models
 // NetVis.nodes, NetVis.messages, NetVis.history inherit from BaseNetVisModel
 
 BaseNetVisModel = function() {
@@ -62,10 +28,11 @@ BaseNetVisModel = function() {
 };/////////////////////////////////////////////////////////////// Define history model and handlers
 
 
-NetVisHistory = function() {
-	BaseNetVisModel.apply(this); // History class inherits from baseModel
-	
-	this.loadEvent = function(obj, momentTime) {
+NetVis.prototype._constructNetVisHistory = function() {
+	var self = this;
+	self.history = new BaseNetVisModel(this); // History class inherits from baseModel
+
+	self.history.loadEvent = function(obj, momentTime) {
 		obj._t = momentTime;
 		obj.time = momentTime.toISOString();
 		// eventID to be unique and contain timestamp
@@ -89,7 +56,7 @@ NetVisHistory = function() {
 		while (lowI < highI) {
 			cur = Math.floor((highI + lowI) /2);
 			if (this.asArray[cur]._t.isBefore(obj._t)) {
-				lowI = cur + 1;	
+				lowI = cur + 1;
 			} else {
 				highI = cur;
 			}
@@ -98,7 +65,7 @@ NetVisHistory = function() {
 	};
 
 
-	this.updateAll = function() {
+	self.history.updateAll = function() {
 		// create interval instances from events array
 		if (!this.asArray) {
 			// no events or not initialized
@@ -113,37 +80,47 @@ NetVisHistory = function() {
 		startEvents = [this.asArray[cur]];
 		cur ++;
 		while (cur < this.asArray.length -1 && !this.asArray[cur]._t.isAfter(startEvents[0]._t)) {
-			startEvents.push(this.asArray[cur]);			
+			startEvents.push(this.asArray[cur]);
 			cur++;
 		}
 
+		// traversing all simultanious events into events for interval boundaries
 		while (cur < this.asArray.length) {
 			finishEvents =[this.asArray[cur]];
 			cur++;
 			while (cur < this.asArray.length -1 && !this.asArray[cur]._t.isAfter(finishEvents[0]._t)) {
-				finishEvents.push(this.asArray[cur]);			
+				finishEvents.push(this.asArray[cur]);
 				cur++;
 			}
 
 			curInterval = new NetVisInterval(startEvents, finishEvents, curInterval);
+			if (this.intervals.length === 0) {
+				console.log("Whoop-doop: ", self.Nodes.asArray[i]);
+				for(var i=0; i< self.Nodes.asArray.length; i++) {
+					if (self.Nodes.asArray[i].permanentNode) {
+						curInterval.nodes.push(self.Nodes.asArray[i]);
+					}
+				}
+			}
 			this.intervals.push(curInterval);
 			startEvents = finishEvents;
 		}
 
 
 		if (this.intervals) {
-			this.selectedTimeInterval = this.intervals[0]; 
+			this.selectedTimeInterval = this.intervals[0];
 		}
 	};
 
 
 	// add default time margin moments
-	this.loadEvent({"tag":"end"},moment("3000-01-01"));	
-	this.loadEvent({"tag":"start"},moment("1970-01-01"));	
-	this.updateAll();
+	self.history.loadEvent({"tag":"end"},moment("3000-01-01"));
+	self.history.loadEvent({"tag":"start"},moment("1970-01-01"));
+	self.history.updateAll();
 
 
-};/////////////////////////////////////////////////////////////// Define time interval model
+};
+/////////////////////////////////////////////////////////////// Define time interval model
 
 
 
@@ -156,13 +133,15 @@ NetVisInterval = function(startEvents, endEvents, prevInterval) {
 	this.ends = this._ends.toISOString();
 
 	if (prevInterval) {
-		this.messages = prevInterval.messages.slice(0); 	
+		this.messages = prevInterval.messages.slice(0); // copying array instance
+		this.nodes = 	prevInterval.nodes.slice(0);
 	} else {
 		this.messages = [];
+		this.nodes = [];
 	}
 
 	for(var i=0; i< this.startEvents.length; i++) {
-		var event = this.startEvents[i]; 
+		var event = this.startEvents[i];
 		switch (event.event) {
 			case "messageSent":
 				this.messages.push(event.message);
@@ -172,10 +151,11 @@ NetVisInterval = function(startEvents, endEvents, prevInterval) {
 				    if(this.messages[j].id === event.message.id) {
 				       this.messages.splice(j, 1);
 				    }
-				}				
+				}
 		}
 	}
-};/////////////////////////////////////////////////////////////// NetVis.Messages handles network's messages that nodes communicate with
+};
+/////////////////////////////////////////////////////////////// NetVis.Messages handles network's messages that nodes communicate with
 
 
 NetVisMessages = function() {
@@ -192,6 +172,17 @@ NetVisMessages = function() {
 NetVisNodes = function() {
 	var self = this;
 	BaseNetVisModel.apply(self); // Nodes class inherits from baseModel
+
+	superLoad = self.load;
+	self.load = function(srcObject, assignID) {
+		// if a new node instance and "permanentNode" is not false, will make the
+		if (srcObject.id && !self._asObject[srcObject.id]) {
+			if (typeof srcObject.permanentNode === 'undefined') {
+				srcObject.permanentNode = true;
+			}
+			return superLoad(srcObject, assignID);
+		}
+	};
 
 	self.updateAll = function() {
 		// generate default node's positioning coordinates on canvas
@@ -212,7 +203,8 @@ NetVisNodes = function() {
 			delete self.asArray[i]._yAbs;
 		}
 	};
-};/////////////////////////////////////////////////////////////// NetVis defines global object NetVis that wraps up everything else 
+};
+/////////////////////////////////////////////////////////////// NetVis defines global object NetVis that wraps up everything else
 
 // constructor for NetVis class
 function NetVis(Options) {
@@ -228,11 +220,11 @@ function NetVis(Options) {
 
 	self.Nodes = new NetVisNodes();
 	self.messages = new NetVisMessages();
-	self.history = new NetVisHistory();
+	self._constructNetVisHistory();
 	self.View = new NetVisView();
 	self._selected = self; // _selected object's public attributes are shown at properties-table
 
-	
+
 	self.resetPositions = function() {
 		self.Nodes.resetPositions();
 		self._selected = self;
@@ -246,7 +238,7 @@ function NetVis(Options) {
 		this.history.updateAll();
 
 		if (this.history.intervals) {
-			this.selectedTimeInterval = this.history.intervals[0]; 
+			this.selectedTimeInterval = this.history.intervals[0];
 		}
 	};
 }
@@ -259,13 +251,10 @@ if (typeof module != 'undefined') {
 		NetVis: NetVis
 	};
 }
-
-
-
 /////////////////////////////////////////////////////////////// parse deserializes network trace files in NetVis format
 
 NetVis.prototype.parse = function(srcJSON) {
-	// jsonAdapter loads JSON in NetVis format   
+	// jsonAdapter loads JSON in NetVis format
 
 	if (typeof(srcJSON) !== 'object') {
 		return 'srcJSON needs to be a JSON object';
@@ -278,6 +267,9 @@ NetVis.prototype.parse = function(srcJSON) {
 		}
 
 		switch (srcJSON[i].event) {
+			case "nodeEntered":
+				this._parseNodeEntered(srcJSON[i]);
+				break;
 			case "messageSent":
 				this._parseMessageSent(srcJSON[i]);
 				break;
@@ -341,6 +333,18 @@ NetVis.prototype._parseMessageSent = function(src) {
 	return r;
 };
 
+/////////////////////////////////////////////////////////////// parse NodeEntered event
+
+NetVis.prototype._parseNodeEntered = function(src) {
+  var r = this.Nodes.load({
+    "id": src.name,
+    "permanentNode": false
+  });
+
+  src.node = r;
+  var e = this.history.loadEvent(src, moment(src.time));
+  return r;
+};
 /////////////////////////////////////////////////////////////// view/message.js
 // Defines render() function for messages /////////////////////////////////////////////////////////////// view.js defines Netvis.view
 
