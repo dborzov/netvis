@@ -4,6 +4,17 @@ NetVisNodes = function() {
 	var self = this;
 	BaseNetVisModel.apply(self); // Nodes class inherits from baseModel
 
+	superLoad = self.load;
+	self.load = function(srcObject, assignID) {
+		// if a new node instance and "permanentNode" is not false, will make the
+		if (srcObject.id && !self._asObject[srcObject.id]) {
+			if (typeof srcObject.permanentNode === 'undefined') {
+				srcObject.permanentNode = true;
+			}
+			superLoad(srcObject, assignID);
+		}
+	};
+
 	self.updateAll = function() {
 		// generate default node's positioning coordinates on canvas
 		if (self.asArray.length === 0) {
