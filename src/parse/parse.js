@@ -17,6 +17,9 @@ NetVis.prototype.parse = function(srcJSON) {
 			case "nodeEntered":
 				this._parseNodeEntered(srcJSON[i]);
 				break;
+			case "nodeExited":
+					this._parseNodeExited(srcJSON[i]);
+					break;
 			case "messageSent":
 				this._parseMessageSent(srcJSON[i]);
 				break;

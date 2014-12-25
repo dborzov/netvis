@@ -68,7 +68,6 @@ NetVis.prototype._constructNetVisHistory = function() {
 
 			curInterval = new NetVisInterval(startEvents, finishEvents, curInterval);
 			if (this.intervals.length === 0) {
-				console.log("Whoop-doop: ", self.Nodes.asArray[i]);
 				for(var i=0; i< self.Nodes.asArray.length; i++) {
 					if (self.Nodes.asArray[i].permanentNode) {
 						curInterval.nodes.push(self.Nodes.asArray[i]);
