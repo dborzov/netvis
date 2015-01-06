@@ -221,6 +221,7 @@ function NetVis(Options) {
 	self._topologyPanel = Options.topologyPanel || "#chart";
 	self._historyPanel = Options.historyPanel || "#history";
 	self._timePanel = Options.timePanel || "#timestamp";
+	self.playmode = true;
 
 	self.config = {
 		nodeDefaultDistance: 30,

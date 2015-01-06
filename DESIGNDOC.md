@@ -23,3 +23,14 @@ Now one can load netvis entries with:
   myVisualization1.parse(netvisFile);
 ```
 where `netvisFile` is the parsed JSON.
+
+### Controls API
+The following "public" callback functions are available:
+- **updateAll** rebuilds the whole state model from the loaded events: builds up the timeline, resolves the object links and so on
+- **resetPositions** returns all the user-controlled parameters back to the default values, such as selections, object positions on the topology panel and so on
+- **play** switches between the `play` and `pause` mode
+
+A good usage example would be binding one of these functions to the event listener for a button:
+```js
+  $("#reset-positions").click(demo.resetPositions);
+```
