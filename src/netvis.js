@@ -36,6 +36,11 @@ function NetVis(Options) {
 			this.selectedTimeInterval = this.history.intervals[0];
 		}
 	};
+
+	self.play = function() {
+		self.playmode = !self.playmode;
+		self.render();
+	};
 }
 
 

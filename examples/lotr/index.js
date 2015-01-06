@@ -1,6 +1,6 @@
 $(function() {
 
-  var Settings = {}, 
+  var Settings = {},
     demo = new NetVis(Settings),
     SrcURL="lotr.netvis";
 
@@ -8,6 +8,9 @@ $(function() {
 
 
   $("#reset-positions").click(demo.resetPositions);
+  $("#play").click(demo.play);
+
+
   d3.json(SrcURL, function(error, json) {
   	if (error) {
   		demo.View.Logger.error("Failure loading "+SrcURL+": "+ error.statusText);
