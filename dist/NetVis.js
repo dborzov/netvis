@@ -101,6 +101,7 @@ NetVis.prototype._constructNetVisHistory = function() {
 					}
 				}
 			}
+			curInterval.i = this.intervals.length; // store position index to assign timeline slider to the corresponding position
 			this.intervals.push(curInterval);
 			startEvents = finishEvents;
 		}
@@ -108,6 +109,7 @@ NetVis.prototype._constructNetVisHistory = function() {
 
 		// build doubly linked list for time intervals
 		for (var j=0; j< this.intervals.length -1; j++) {
+
 			this.intervals[j].next = this.intervals[j+1];
 			this.intervals[j+1].prev = this.intervals[j];
 		}
@@ -266,6 +268,10 @@ function NetVis(Options) {
 
 	self.play = function() {
 		self.playmode = !self.playmode;
+		if (self.playmode) {
+				// if playing shift position right away to make UI feel responsive
+				self.history.next();
+		}
 		self.render();
 	};
 }
@@ -420,7 +426,7 @@ NetVis.prototype.initView = function() {
        	self.selectedTimeInterval = self.history.intervals[value -1];
        	self._selected = self.selectedTimeInterval;
        	$('#timestamp').html(value);
-		self.render();
+				self.render();
        }
      });
 
@@ -564,4 +570,9 @@ NetVis.prototype.render = function() {
         .on("click", function(d) {self._selected = d.value; self.render();});
 
 
+
+		// move time-controls panel
+		$("#history")
+				.val(self.selectedTimeInterval.i + 1)
+				.change();
 };

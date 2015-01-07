@@ -31,7 +31,7 @@ NetVis.prototype.initView = function() {
        	self.selectedTimeInterval = self.history.intervals[value -1];
        	self._selected = self.selectedTimeInterval;
        	$('#timestamp').html(value);
-		self.render();
+				self.render();
        }
      });
 
@@ -175,4 +175,9 @@ NetVis.prototype.render = function() {
         .on("click", function(d) {self._selected = d.value; self.render();});
 
 
+
+		// move time-controls panel
+		$("#history")
+				.val(self.selectedTimeInterval.i + 1)
+				.change();
 };
