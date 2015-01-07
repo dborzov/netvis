@@ -1,8 +1,11 @@
+var demo; // define netVis object here so that it is global
+// and console accessable
+
 $(function() {
 
-  var Settings = {},
-    demo = new NetVis(Settings),
-    SrcURL="lotr.netvis";
+  Settings = {};
+  demo = new NetVis(Settings);
+  var SrcURL="lotr.netvis";
 
   $('#history').rangeslider();
 
