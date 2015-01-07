@@ -39,6 +39,10 @@ function NetVis(Options) {
 
 	self.play = function() {
 		self.playmode = !self.playmode;
+		if (self.playmode) {
+				// if playing shift position right away to make UI feel responsive
+				self.history.next();
+		}
 		self.render();
 	};
 }
