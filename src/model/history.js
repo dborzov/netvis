@@ -74,6 +74,7 @@ NetVis.prototype._constructNetVisHistory = function() {
 					}
 				}
 			}
+			curInterval.i = this.intervals.length; // store position index to assign timeline slider to the corresponding position
 			this.intervals.push(curInterval);
 			startEvents = finishEvents;
 		}
@@ -81,6 +82,7 @@ NetVis.prototype._constructNetVisHistory = function() {
 
 		// build doubly linked list for time intervals
 		for (var j=0; j< this.intervals.length -1; j++) {
+
 			this.intervals[j].next = this.intervals[j+1];
 			this.intervals[j+1].prev = this.intervals[j];
 		}
