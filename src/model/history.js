@@ -79,7 +79,7 @@ NetVis.prototype._constructNetVisHistory = function() {
 		}
 
 
-		if (this.intervals) {
+		if (this.intervals.length > 0) {
 			this.selectedTimeInterval = this.intervals[0];
 		}
 	};
