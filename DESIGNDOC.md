@@ -29,7 +29,7 @@ The following "public" callback functions are available
 
 #### Basic controls
 Basic controls functions are on the root level and are the most commonly used ones.
-
+- **netVis1.initView()** initializes visualization's rendering
 - **netVis1.parse(netvisJSON)** load netvis files
 - **netVis1.updateAll** rebuilds the whole state model from the loaded events: builds up the timeline, resolves the object links and so on
 - **netVis1.resetPositions()** returns all the user-controlled parameters back to the default values, such as selections, object positions on the topology panel and so on
