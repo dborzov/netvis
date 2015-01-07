@@ -106,11 +106,23 @@ NetVis.prototype._constructNetVisHistory = function() {
 		}
 
 
-		if (this.intervals) {
-			this.selectedTimeInterval = this.intervals[0];
+		// build doubly linked list for time intervals
+		for (var j=0; j< this.intervals.length -1; j++) {
+			this.intervals[j].next = this.intervals[j+1];
+			this.intervals[j+1].prev = this.intervals[j];
 		}
+
 	};
 
+
+
+
+
+	self.history.next = function() {
+		if (self.selectedTimeInterval && self.selectedTimeInterval.next) {
+			self.selectedTimeInterval = self.selectedTimeInterval.next;
+		}
+	};
 
 	// add default time margin moments
 	self.history.loadEvent({"tag":"end"},moment("3000-01-01"));
