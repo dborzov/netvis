@@ -40,14 +40,13 @@ function NetVis(Options) {
 	self.play = function() {
 		self.playmode = !self.playmode;
 		if (self.playmode) {
-				// if playing shift position right away to make UI feel responsive
+			self.playTicker = window.setInterval(function() {
+				console.log('tick tack');
 				self.history.next();
-
-				window.setInterval(function() {
-					console.log('tick tack');
-					self.history.next();
-					self.render();
-				}, 800);
+				self.render();
+			}, 800);
+		} else {
+			window.clearInterval(self.playTicker); // clear play ticking timer
 		}
 		self.render();
 	};
