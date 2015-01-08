@@ -95,10 +95,10 @@ Note that while the Earth node is defined with a `nodeEntered` event, Jupiter is
 Other
 ----------------
 Also see:
-- [DESIGNDOC.md](DESIGNDOC.md), netvis project design and API doc
-- [netvis.md] netvis network log file format specification
-- [ROADMAP.md](ROADMAP.md), project development roadmap
-- [DEVELOPING.md](DEVELOPING.md), internal designdoc. If you are considering contributing, or just want to see how things work internally, awesome! That would be a good place to start.  
+- **[DESIGNDOC.md](DESIGNDOC.md)** - netvis project design and API doc
+- **[netvis.md](netvis.md)** netvis network log file format specification
+- **[ROADMAP.md](ROADMAP.md)**, project development roadmap
+- **[DEVELOPING.md](DEVELOPING.md)**, internal designdoc. If you are considering contributing, or just want to see how things work internally, awesome! That would be a good place to start.  
 
 
 MIT license.
