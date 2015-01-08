@@ -104,13 +104,15 @@ NetVis.prototype.render = function() {
 		    .attr("cy", function(d) {return d._yAbs;});
 	};
 
-	d3.timer.flush();
-    d3.timer(function() {
-     	self.messages.asArray.forEach(function(el){
-     		el._p = (el._p + 0.001) % 1.0;
-     	});
-     	syncPositions();
-     });
+
+	window.clearInterval(self._animateTimer);
+	self._animateTimer = window.setInterval(function() {
+		self.messages.asArray.forEach(function(el){
+			el._p = (el._p + 0.01) % 1.0;
+		});
+		syncPositions();
+	}, 100);
+
 
 	syncPositions()
 	    .attr("r",self.config.nodeDefaultRadius)
@@ -180,15 +182,5 @@ NetVis.prototype.render = function() {
 		$("#history")
 				.val(self.selectedTimeInterval.i + 1)
 				.change();
-
-
-		if (self.playmode) {
-			clearInterval(self.playTicker);
-			self.playTicker = window.setInterval(function() {
-				console.log('tick tack');
-				self.history.next();
-				self.render();
-			}, 800);
-		}
 
 };

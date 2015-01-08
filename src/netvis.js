@@ -40,13 +40,12 @@ function NetVis(Options) {
 	self.play = function() {
 		self.playmode = !self.playmode;
 		if (self.playmode) {
-			self.playTicker = window.setInterval(function() {
-				console.log('tick tack');
+			self._playTicker = window.setInterval(function() {
 				self.history.next();
 				self.render();
 			}, 800);
 		} else {
-			window.clearInterval(self.playTicker); // clear play ticking timer
+			window.clearInterval(self._playTicker); // clear play ticking timer
 		}
 		self.render();
 	};
