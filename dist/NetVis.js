@@ -235,7 +235,7 @@ function NetVis(Options) {
 	self._topologyPanel = Options.topologyPanel || "#chart";
 	self._historyPanel = Options.historyPanel || "#history";
 	self._timePanel = Options.timePanel || "#timestamp";
-	self.playmode = true;
+	self.playmode = false;
 
 	self.config = {
 		nodeDefaultDistance: 30,
@@ -271,6 +271,12 @@ function NetVis(Options) {
 		if (self.playmode) {
 				// if playing shift position right away to make UI feel responsive
 				self.history.next();
+
+				window.setInterval(function() {
+					console.log('tick tack');
+					self.history.next();
+					self.render();
+				}, 800);
 		}
 		self.render();
 	};
