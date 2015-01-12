@@ -95,9 +95,9 @@ NetVis.prototype._constructNetVisHistory = function() {
 
 			curInterval = new NetVisInterval(startEvents, finishEvents, curInterval);
 			if (this.intervals.length === 0) {
-				for(var i=0; i< self.Nodes.asArray.length; i++) {
-					if (self.Nodes.asArray[i].permanentNode) {
-						curInterval.nodes.push(self.Nodes.asArray[i]);
+				for(var i=0; i< self.nodes.asArray.length; i++) {
+					if (self.nodes.asArray[i].permanentNode) {
+						curInterval.nodes.push(self.nodes.asArray[i]);
 					}
 				}
 			}
@@ -203,7 +203,7 @@ NetVisMessages = function() {
 
 NetVisNodes = function() {
 	var self = this;
-	BaseNetVisModel.apply(self); // Nodes class inherits from baseModel
+	BaseNetVisModel.apply(self); // nodes class inherits from baseModel
 
 	superLoad = self.load;
 	self.load = function(srcObject, assignID) {
@@ -252,7 +252,7 @@ function NetVis(Options) {
 		loopPlay: false
 	};
 
-	self.Nodes = new NetVisNodes();
+	self.nodes = new NetVisNodes();
 	self.messages = new NetVisMessages();
 	self._constructNetVisHistory();
 	self.View = new NetVisView();
@@ -260,14 +260,14 @@ function NetVis(Options) {
 
 
 	self.resetPositions = function() {
-		self.Nodes.resetPositions();
+		self.nodes.resetPositions();
 		self._selected = self;
 		self.render();
 	};
 
 
 	self.updateAll = function() {
-		this.Nodes.updateAll();
+		this.nodes.updateAll();
 		this.messages.updateAll();
 		this.history.updateAll();
 
@@ -376,12 +376,12 @@ NetVis.prototype._parseMessageSent = function(src) {
 		return r;
 	}
 
-	this.Nodes.load({"id":src.loggerID});
-	r.source = this.Nodes._asObject[src.loggerID];
+	this.nodes.load({"id":src.loggerID});
+	r.source = this.nodes._asObject[src.loggerID];
 
 
-	this.Nodes.load({"id":src.destinationNode});
-	r.destination = this.Nodes._asObject[src.destinationNode];
+	this.nodes.load({"id":src.destinationNode});
+	r.destination = this.nodes._asObject[src.destinationNode];
 
 	src.message = r;
 	var e = this.history.loadEvent(src, moment(src.time));
@@ -392,7 +392,7 @@ NetVis.prototype._parseMessageSent = function(src) {
 /////////////////////////////////////////////////////////////// parse NodeEntered event
 
 NetVis.prototype._parseNodeEntered = function(src) {
-  var r = this.Nodes.load({
+  var r = this.nodes.load({
     "id": src.name,
     "permanentNode": false
   });
@@ -404,7 +404,7 @@ NetVis.prototype._parseNodeEntered = function(src) {
 /////////////////////////////////////////////////////////////// parse NodeExited event
 
 NetVis.prototype._parseNodeExited = function(src) {
-  var r = this.Nodes.load({
+  var r = this.nodes.load({
     "id": src.name
   });
   console.log("parseNodeExited reports node: ", r, " from event record: ", src);
@@ -418,7 +418,7 @@ NetVis.prototype.render = function() {
   var self = this;
   var width = $(self._topologyPanel).width();
 
-  self.Nodes.asArray.forEach(function(el) {
+  self.nodes.asArray.forEach(function(el) {
     if (!el._xAbs) {
       el._xAbs = el._x*width;
     }

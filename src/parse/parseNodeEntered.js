@@ -1,7 +1,7 @@
 // parse NodeEntered event
 
 NetVis.prototype._parseNodeEntered = function(src) {
-  var r = this.Nodes.load({
+  var r = this.nodes.load({
     "id": src.name,
     "permanentNode": false
   });

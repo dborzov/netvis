@@ -3,7 +3,7 @@ NetVis.prototype.render = function() {
   var self = this;
   var width = $(self._topologyPanel).width();
 
-  self.Nodes.asArray.forEach(function(el) {
+  self.nodes.asArray.forEach(function(el) {
     if (!el._xAbs) {
       el._xAbs = el._x*width;
     }

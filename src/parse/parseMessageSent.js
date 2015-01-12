@@ -13,12 +13,12 @@ NetVis.prototype._parseMessageSent = function(src) {
 		return r;
 	}
 
-	this.Nodes.load({"id":src.loggerID});
-	r.source = this.Nodes._asObject[src.loggerID];
+	this.nodes.load({"id":src.loggerID});
+	r.source = this.nodes._asObject[src.loggerID];
 
 
-	this.Nodes.load({"id":src.destinationNode});
-	r.destination = this.Nodes._asObject[src.destinationNode];
+	this.nodes.load({"id":src.destinationNode});
+	r.destination = this.nodes._asObject[src.destinationNode];
 
 	src.message = r;
 	var e = this.history.loadEvent(src, moment(src.time));

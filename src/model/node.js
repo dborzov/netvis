@@ -2,7 +2,7 @@
 
 NetVisNodes = function() {
 	var self = this;
-	BaseNetVisModel.apply(self); // Nodes class inherits from baseModel
+	BaseNetVisModel.apply(self); // nodes class inherits from baseModel
 
 	superLoad = self.load;
 	self.load = function(srcObject, assignID) {

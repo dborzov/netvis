@@ -68,9 +68,9 @@ NetVis.prototype._constructNetVisHistory = function() {
 
 			curInterval = new NetVisInterval(startEvents, finishEvents, curInterval);
 			if (this.intervals.length === 0) {
-				for(var i=0; i< self.Nodes.asArray.length; i++) {
-					if (self.Nodes.asArray[i].permanentNode) {
-						curInterval.nodes.push(self.Nodes.asArray[i]);
+				for(var i=0; i< self.nodes.asArray.length; i++) {
+					if (self.nodes.asArray[i].permanentNode) {
+						curInterval.nodes.push(self.nodes.asArray[i]);
 					}
 				}
 			}

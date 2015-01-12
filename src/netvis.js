@@ -14,7 +14,7 @@ function NetVis(Options) {
 		loopPlay: false
 	};
 
-	self.Nodes = new NetVisNodes();
+	self.nodes = new NetVisNodes();
 	self.messages = new NetVisMessages();
 	self._constructNetVisHistory();
 	self.View = new NetVisView();
@@ -22,14 +22,14 @@ function NetVis(Options) {
 
 
 	self.resetPositions = function() {
-		self.Nodes.resetPositions();
+		self.nodes.resetPositions();
 		self._selected = self;
 		self.render();
 	};
 
 
 	self.updateAll = function() {
-		this.Nodes.updateAll();
+		this.nodes.updateAll();
 		this.messages.updateAll();
 		this.history.updateAll();
 

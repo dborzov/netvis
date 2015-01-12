@@ -1,7 +1,7 @@
 // parse NodeExited event
 
 NetVis.prototype._parseNodeExited = function(src) {
-  var r = this.Nodes.load({
+  var r = this.nodes.load({
     "id": src.name
   });
   console.log("parseNodeExited reports node: ", r, " from event record: ", src);
