@@ -27,17 +27,36 @@
 		    	<div id="chart">
 		    	</div>
 		    	<div class="history-panel">
-		    		<p class="pull-right">
-				    	<button class="btn btn-small" type="button" id="reset-positions">
-				    		reset positions
-				    	</button>
-				    </p>
+            <div>
+              <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-warning">
+                    <span class="glyphicon glyphicon-step-backward"></span>
+                  </button>
+                  <button id="play" type="button" class="btn btn-danger">
+                    <span class="glyphicon glyphicon-play"></span>
+                  </button>
+                  <button type="button" class="btn btn-warning">
+                    <span class="glyphicon glyphicon-step-forward"></span>
+                  </button>
+                </div>
+                <div class="btn-group">
+                  <button id="repeat" type="button" class="btn btn-warning" alt="loop playing">
+                    <span class="glyphicon glyphicon-repeat"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
 			    </div>
 		    </div>
 		    <div class="col-xs-4">
 		    	<h4>NetVis</h4>
 		    	a tool to to visualize networks (<a href="https://github.com/dborzov/NetVis">more..</a>)
 		    	<div class="row properties-panel">
+            <button class="btn btn-small pull-right" type="button" id="reset-positions">
+              reset
+            </button>
+            <br>
 		    		<table class="table table-bordered properties-table">
 		    			<thead>
 		    				<th>
@@ -50,28 +69,13 @@
 		    			<tbody id="properties-tbody">
 		    			</tbody>
 		    		</table>
+            <div class="col-xs-2" id="timestamp">
+              time
+            </div>
 		    	</div>
 		    </div>
 	    </div>
   	    <div class="row history-panel">
-  		    <div class="col-xs-2">
-  		    	<div class="btn-toolbar" role="toolbar">
-  		    		<div class="btn-group">
-  		    		  <button type="button" class="btn btn-warning">
-  		    		  	<span class="glyphicon glyphicon-step-backward"></span>
-  		    		  </button>
-  		    		  <button id="play" type="button" class="btn btn-danger">
-  		    		  	<span class="glyphicon glyphicon-play"></span>
-  		    		  </button>
-  		    		  <button type="button" class="btn btn-warning">
-  		    		  	<span class="glyphicon glyphicon-step-forward"></span>
-  		    		  </button>
-  		    		 </div>
-  			    </div>
-  		    </div>
-  		    <div class="col-xs-2" id="timestamp">
-  		    	time
-  		    </div>
 
   		    <div class="col-xs-8">
   	    		<input type=range min=0 max=30 value=1 step=1 id="history">
