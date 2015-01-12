@@ -128,6 +128,8 @@ NetVis.prototype._constructNetVisHistory = function() {
 				// reached the end og the timeline, loop to beginning if repeat mode on
 				if (self.config.loopPlay) {
 					self.selectedTimeInterval = this.intervals[0];
+				} else {
+					self.play(); // toggle off the play mode
 				}
 			}
 		}
