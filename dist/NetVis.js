@@ -519,20 +519,30 @@ NetVis.prototype.render = function() {
   .on("click",function(d) { self._selected = self; self.render();}) // double click unselects it
   .attr('class','message selected');
 
+
   // Render selected item graph position
   $("#tree").empty();
-  cur = self._selected;
+  var cur = self._selected;
+  position = [];
   while (cur._root) {
-    console.log("traversing with ", cur._propertiesAlias);
-    $("#tree").prepend(" > " + cur._label);
+    position.unshift({"label": cur._label, "obj": cur});
     cur = cur._root;
   }
+
+  position.unshift({"label":"Home", "obj": self});
+  d3.select("#tree")
+    .selectAll("li")
+    .data(position)
+    .enter()
+    .append("li")
+    .append("a")
+    .text(function(d) {return d.label;})
+    .on("click", function(d) {self._selected = d.obj; self.render(); });
 
   // Render properties-table
   $("#properties-tbody").empty();
   attributes = [];
   if (self._selected._propertiesAlias) {
-    console.log("yes here we use alias");
     objTraversed = self._selected._propertiesAlias;
   } else {
     objTraversed = self._selected;
@@ -559,10 +569,10 @@ NetVis.prototype.render = function() {
   rows.append("td").text(function(d) {return d.attr; });
 
   rows.filter(function(d) {return !d.obj;})
-  .append("td")
-  .append("div")
-  .attr("class","properties-column")
-  .text(function(d) {return d.value; });
+    .append("td")
+    .append("div")
+    .attr("class","properties-column")
+    .text(function(d) {return d.value; });
 
   rows.filter(function(d) {return d.obj;}).append("td").append("a").text(function(d) {return "more.."; })
   .on("click", function(d) {self._selected = d.value; self.render();});
@@ -583,8 +593,8 @@ NetVis.prototype.render = function() {
 
   // move time-controls panel
   $("#history")
-  .val(self.selectedTimeInterval.i + 1)
-  .change();
+    .val(self.selectedTimeInterval.i + 1)
+    .change();
 
 };
 /////////////////////////////////////////////////////////////// view.js defines Netvis.view
