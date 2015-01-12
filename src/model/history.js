@@ -1,7 +1,7 @@
 // Define history model and handlers
 
 
-NetVis.prototype._constructNetVisHistory = function() {
+NetVis.prototype._constructHistory = function() {
 	var self = this;
 	self.history = new BaseNetVisModel(this); // History class inherits from baseModel
 

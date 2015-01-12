@@ -14,9 +14,9 @@ function NetVis(Options) {
 		loopPlay: false
 	};
 
-	self.nodes = new NetVisNodes();
+	self._constructNodes();
 	self.messages = new NetVisMessages();
-	self._constructNetVisHistory();
+	self._constructHistory();
 	self.View = new NetVisView();
 	self._selected = self; // _selected object's public attributes are shown at properties-table
 
