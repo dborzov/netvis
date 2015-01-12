@@ -203,7 +203,11 @@ NetVisMessages = function() {
 
 NetVis.prototype._constructNodes = function() {
 	var self = this;
+
 	self.nodes = new BaseNetVisModel(); // nodes class inherits from baseModel
+	self.nodes._root = self;
+	self.nodes._label = "nodes";
+	self.nodes._propertiesAlias = self.nodes._asObject;
 
 	superLoad = self.nodes.load;
 	self.nodes.load = function(srcObject, assignID) {
@@ -515,17 +519,31 @@ NetVis.prototype.render = function() {
   .on("click",function(d) { self._selected = self; self.render();}) // double click unselects it
   .attr('class','message selected');
 
-
+  // Render selected item graph position
+  $("#tree").empty();
+  cur = self._selected;
+  while (cur._root) {
+    console.log("traversing with ", cur._propertiesAlias);
+    $("#tree").prepend(" > " + cur._label);
+    cur = cur._root;
+  }
 
   // Render properties-table
   $("#properties-tbody").empty();
   attributes = [];
-  for (var key in self._selected) {
-    if (!self._selected.hasOwnProperty(key)) {
+  if (self._selected._propertiesAlias) {
+    console.log("yes here we use alias");
+    objTraversed = self._selected._propertiesAlias;
+  } else {
+    objTraversed = self._selected;
+  }
+
+  for (var key in objTraversed) {
+    if (!objTraversed.hasOwnProperty(key)) {
       // inherited attribute, ignoring
       continue;
     }
-    if (typeof(self._selected[key]) == "function") {
+    if (typeof(objTraversed[key]) == "function") {
       // attribute is a function, ignoring
       continue;
     }
@@ -533,7 +551,7 @@ NetVis.prototype.render = function() {
       // private attribute, ignoring
       continue;
     }
-    attributes.push({"attr": key, "value":self._selected[key], "obj": typeof(self._selected[key]) == "object"});
+    attributes.push({"attr": key, "value":objTraversed[key], "obj": typeof(objTraversed[key]) == "object"});
   }
 
   rows = d3.select("#properties-tbody").selectAll("tr").data(attributes).enter().append("tr");

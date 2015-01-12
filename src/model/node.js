@@ -2,7 +2,11 @@
 
 NetVis.prototype._constructNodes = function() {
 	var self = this;
+
 	self.nodes = new BaseNetVisModel(); // nodes class inherits from baseModel
+	self.nodes._root = self;
+	self.nodes._label = "nodes";
+	self.nodes._propertiesAlias = self.nodes._asObject;
 
 	superLoad = self.nodes.load;
 	self.nodes.load = function(srcObject, assignID) {
