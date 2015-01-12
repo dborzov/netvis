@@ -50,6 +50,12 @@ function NetVis(Options) {
 		}
 		self.render();
 	};
+
+	self.loopPlay = function() {
+		self.config.loopPlay = !self.config.loopPlay;
+		self.render();
+	};
+
 }
 
 

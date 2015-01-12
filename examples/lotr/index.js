@@ -12,6 +12,7 @@ $(function() {
 
   $("#reset-positions").click(demo.resetPositions);
   $("#play").click(demo.play);
+  $("#repeat").click(demo.loopPlay);
 
 
   d3.json(SrcURL, function(error, json) {
