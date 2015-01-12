@@ -121,8 +121,15 @@ NetVis.prototype._constructNetVisHistory = function() {
 
 
 	self.history.next = function() {
-		if (self.selectedTimeInterval && self.selectedTimeInterval.next) {
-			self.selectedTimeInterval = self.selectedTimeInterval.next;
+		if (self.selectedTimeInterval) {
+			if (self.selectedTimeInterval.next) {
+				self.selectedTimeInterval = self.selectedTimeInterval.next;
+			} else {
+				// reached the end og the timeline, loop to beginning if repeat mode on
+				if (self.config.loopPlay) {
+					self.selectedTimeInterval = this.intervals[0];
+				}
+			}
 		}
 	};
 
@@ -239,7 +246,8 @@ function NetVis(Options) {
 
 	self.config = {
 		nodeDefaultDistance: 30,
-		nodeDefaultRadius: 10
+		nodeDefaultRadius: 10,
+		loopPlay: false
 	};
 
 	self.Nodes = new NetVisNodes();
@@ -538,6 +546,12 @@ NetVis.prototype.render = function() {
     $("#play").find("span").attr("class","glyphicon glyphicon-pause");
   } else {
     $("#play").find("span").attr("class","glyphicon glyphicon-play");
+  }
+
+  if (self.config.loopPlay) {
+    $("#repeat").attr("class","btn btn-danger");
+  } else {
+    $("#repeat").attr("class","btn btn-active");
   }
 
 

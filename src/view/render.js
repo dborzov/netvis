@@ -141,6 +141,12 @@ NetVis.prototype.render = function() {
     $("#play").find("span").attr("class","glyphicon glyphicon-play");
   }
 
+  if (self.config.loopPlay) {
+    $("#repeat").attr("class","btn btn-danger");
+  } else {
+    $("#repeat").attr("class","btn btn-active");
+  }
+
 
   // move time-controls panel
   $("#history")

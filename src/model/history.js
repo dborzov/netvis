@@ -94,8 +94,15 @@ NetVis.prototype._constructNetVisHistory = function() {
 
 
 	self.history.next = function() {
-		if (self.selectedTimeInterval && self.selectedTimeInterval.next) {
-			self.selectedTimeInterval = self.selectedTimeInterval.next;
+		if (self.selectedTimeInterval) {
+			if (self.selectedTimeInterval.next) {
+				self.selectedTimeInterval = self.selectedTimeInterval.next;
+			} else {
+				// reached the end og the timeline, loop to beginning if repeat mode on
+				if (self.config.loopPlay) {
+					self.selectedTimeInterval = this.intervals[0];
+				}
+			}
 		}
 	};
 

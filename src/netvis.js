@@ -10,7 +10,8 @@ function NetVis(Options) {
 
 	self.config = {
 		nodeDefaultDistance: 30,
-		nodeDefaultRadius: 10
+		nodeDefaultRadius: 10,
+		loopPlay: false
 	};
 
 	self.Nodes = new NetVisNodes();
