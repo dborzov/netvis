@@ -3,7 +3,7 @@
 
 NetVis.prototype._constructHistory = function() {
 	var self = this;
-	self.history = new BaseNetVisModel(this); // History class inherits from baseModel
+	self.history = new BaseNetVisModel(self, "timeline"); // History class inherits from baseModel
 
 	self.history.loadEvent = function(obj, momentTime) {
 		obj._t = momentTime;
@@ -35,6 +35,7 @@ NetVis.prototype._constructHistory = function() {
 			}
 		}
 		this.asArray.splice(Math.floor((highI + lowI) /2), 0,obj);
+
 	};
 
 

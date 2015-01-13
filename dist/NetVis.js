@@ -1,10 +1,14 @@
 // BaseNetVisModel contains common elements shared among all the NetVis models
 // NetVis.nodes, NetVis.messages, NetVis.history inherit from BaseNetVisModel
 
-BaseNetVisModel = function() {
+BaseNetVisModel = function(root, label) {
 	var self = this;
 	self._asObject = {}; // used to store info on nodes
+
 	self._propertiesAlias = self._asObject;
+	self._root = root;
+	self._label = label;
+
 	self.asArray = []; // array of node's data mirrors _asObject data, connected to d3 canvas
 	self.load = function(srcObject, assignID) {
 		// loadNode updates nodesModel with node data read off srcObject
@@ -36,7 +40,7 @@ BaseNetVisModel = function() {
 
 NetVis.prototype._constructHistory = function() {
 	var self = this;
-	self.history = new BaseNetVisModel(this); // History class inherits from baseModel
+	self.history = new BaseNetVisModel(self, "timeline"); // History class inherits from baseModel
 
 	self.history.loadEvent = function(obj, momentTime) {
 		obj._t = momentTime;
@@ -68,6 +72,7 @@ NetVis.prototype._constructHistory = function() {
 			}
 		}
 		this.asArray.splice(Math.floor((highI + lowI) /2), 0,obj);
+
 	};
 
 
@@ -210,10 +215,8 @@ NetVisMessages = function() {
 NetVis.prototype._constructNodes = function() {
 	var self = this;
 
-	self.nodes = new BaseNetVisModel(); // nodes class inherits from baseModel
-	self.nodes._root = self;
-	self.nodes._label = "nodes";
-	
+	self.nodes = new BaseNetVisModel(self, "nodes"); // nodes class inherits from baseModel
+
 
 	superLoad = self.nodes.load;
 	self.nodes.load = function(srcObject, assignID) {
