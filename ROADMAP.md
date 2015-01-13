@@ -14,10 +14,10 @@ Also see
 - [ ] fix nodeExited not rendering right issue (when no matching nodeEntered event)
 
 ### Controls
-- [ ] enable model browsing with properties-panel
-- [ ] implement playing mode
+- [x] enable model browsing with properties-panel
+- [x] implement playing mode
 
 
 ### Demo page
-- [ ] Fix playback controls alignement on smaller screens
+- [x] Fix playback controls alignement on smaller screens
 - [ ] Add ability to open arbitrary netvis files on demo page
