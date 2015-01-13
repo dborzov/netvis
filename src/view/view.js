@@ -28,8 +28,8 @@ NetVis.prototype.initView = function() {
      $('#history').rangeslider({
        polyfill: false,
        onSlideEnd: function(position, value) {
-       	self.selectedTimeInterval = self.history.intervals[value -1];
-       	self._selected = self.selectedTimeInterval;
+       	self._selectedTimeInterval = self.history.intervals[value -1];
+       	self._selected = self._selectedTimeInterval;
        	$('#timestamp').html(value);
 				self.render();
        }

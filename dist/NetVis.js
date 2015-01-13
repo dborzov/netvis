@@ -132,13 +132,13 @@ NetVis.prototype._constructHistory = function() {
 
 
 	self.history.next = function() {
-		if (self.selectedTimeInterval) {
-			if (self.selectedTimeInterval.next) {
-				self.selectedTimeInterval = self.selectedTimeInterval.next;
+		if (self._selectedTimeInterval) {
+			if (self._selectedTimeInterval.next) {
+				self._selectedTimeInterval = self._selectedTimeInterval.next;
 			} else {
 				// reached the end og the timeline, loop to beginning if repeat mode on
 				if (self.config.loopPlay) {
-					self.selectedTimeInterval = this.intervals[0];
+					self._selectedTimeInterval = this.intervals[0];
 				} else {
 					self.play(); // toggle off the play mode
 				}
@@ -285,7 +285,7 @@ function NetVis(Options) {
 		this.history.updateAll();
 
 		if (this.history.intervals) {
-			this.selectedTimeInterval = this.history.intervals[0];
+			this._selectedTimeInterval = this.history.intervals[0];
 		}
 	};
 
@@ -456,17 +456,17 @@ NetVis.prototype.render = function() {
   .attr("class", "contour");
 
 
-  messages = canvas.selectAll('line.message').data(self.selectedTimeInterval.messages)
+  messages = canvas.selectAll('line.message').data(self._selectedTimeInterval.messages)
   .enter().append('line')
   .on("click",function(d) { self._selected = d; self.render();})
   .attr('class','message');
 
-  messagesAnimation = canvas.selectAll('line.messageAnimation').data(self.selectedTimeInterval.messages)
+  messagesAnimation = canvas.selectAll('line.messageAnimation').data(self._selectedTimeInterval.messages)
   .enter().append('line')
   .on("click",function(d) { self._selected = d; self.render();})
   .attr('class','messageAnimation');
 
-  nodes = canvas.selectAll("circle.node").data(self.selectedTimeInterval.nodes)
+  nodes = canvas.selectAll("circle.node").data(self._selectedTimeInterval.nodes)
   .enter().append("circle")
   .on("click",function(d) { self._selected = d; self.render();})
   .attr('class','node');
@@ -602,7 +602,7 @@ NetVis.prototype.render = function() {
 
   // move time-controls panel
   $("#history")
-    .val(self.selectedTimeInterval.i + 1)
+    .val(self._selectedTimeInterval.i + 1)
     .change();
 
 };
@@ -636,8 +636,8 @@ NetVis.prototype.initView = function() {
      $('#history').rangeslider({
        polyfill: false,
        onSlideEnd: function(position, value) {
-       	self.selectedTimeInterval = self.history.intervals[value -1];
-       	self._selected = self.selectedTimeInterval;
+       	self._selectedTimeInterval = self.history.intervals[value -1];
+       	self._selected = self._selectedTimeInterval;
        	$('#timestamp').html(value);
 				self.render();
        }

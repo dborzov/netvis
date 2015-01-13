@@ -95,13 +95,13 @@ NetVis.prototype._constructHistory = function() {
 
 
 	self.history.next = function() {
-		if (self.selectedTimeInterval) {
-			if (self.selectedTimeInterval.next) {
-				self.selectedTimeInterval = self.selectedTimeInterval.next;
+		if (self._selectedTimeInterval) {
+			if (self._selectedTimeInterval.next) {
+				self._selectedTimeInterval = self._selectedTimeInterval.next;
 			} else {
 				// reached the end og the timeline, loop to beginning if repeat mode on
 				if (self.config.loopPlay) {
-					self.selectedTimeInterval = this.intervals[0];
+					self._selectedTimeInterval = this.intervals[0];
 				} else {
 					self.play(); // toggle off the play mode
 				}

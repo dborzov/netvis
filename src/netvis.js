@@ -34,7 +34,7 @@ function NetVis(Options) {
 		this.history.updateAll();
 
 		if (this.history.intervals) {
-			this.selectedTimeInterval = this.history.intervals[0];
+			this._selectedTimeInterval = this.history.intervals[0];
 		}
 	};
 

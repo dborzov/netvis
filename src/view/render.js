@@ -28,17 +28,17 @@ NetVis.prototype.render = function() {
   .attr("class", "contour");
 
 
-  messages = canvas.selectAll('line.message').data(self.selectedTimeInterval.messages)
+  messages = canvas.selectAll('line.message').data(self._selectedTimeInterval.messages)
   .enter().append('line')
   .on("click",function(d) { self._selected = d; self.render();})
   .attr('class','message');
 
-  messagesAnimation = canvas.selectAll('line.messageAnimation').data(self.selectedTimeInterval.messages)
+  messagesAnimation = canvas.selectAll('line.messageAnimation').data(self._selectedTimeInterval.messages)
   .enter().append('line')
   .on("click",function(d) { self._selected = d; self.render();})
   .attr('class','messageAnimation');
 
-  nodes = canvas.selectAll("circle.node").data(self.selectedTimeInterval.nodes)
+  nodes = canvas.selectAll("circle.node").data(self._selectedTimeInterval.nodes)
   .enter().append("circle")
   .on("click",function(d) { self._selected = d; self.render();})
   .attr('class','node');
@@ -174,7 +174,7 @@ NetVis.prototype.render = function() {
 
   // move time-controls panel
   $("#history")
-    .val(self.selectedTimeInterval.i + 1)
+    .val(self._selectedTimeInterval.i + 1)
     .change();
 
 };
