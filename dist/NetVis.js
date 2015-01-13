@@ -4,6 +4,7 @@
 BaseNetVisModel = function() {
 	var self = this;
 	self._asObject = {}; // used to store info on nodes
+	self._propertiesAlias = self._asObject;
 	self.asArray = []; // array of node's data mirrors _asObject data, connected to d3 canvas
 	self.load = function(srcObject, assignID) {
 		// loadNode updates nodesModel with node data read off srcObject
@@ -13,9 +14,13 @@ BaseNetVisModel = function() {
 			srcObject.id = assignID;
 		}
 
+		// assign graph labels
+		srcObject._root = self;
+		srcObject._label = srcObject.id;
+
 		if (!srcObject.id) {
 			return 'BaseNetVisModel.load() no ID provided';
-		} 
+		}
 		if (self._asObject[srcObject.id]) {
 			// instance already exists
 			return self._asObject[srcObject.id];
@@ -25,7 +30,8 @@ BaseNetVisModel = function() {
 		self.asArray.push(srcObject);
 		return srcObject;
 	};
-};/////////////////////////////////////////////////////////////// Define history model and handlers
+};
+/////////////////////////////////////////////////////////////// Define history model and handlers
 
 
 NetVis.prototype._constructHistory = function() {
@@ -207,7 +213,7 @@ NetVis.prototype._constructNodes = function() {
 	self.nodes = new BaseNetVisModel(); // nodes class inherits from baseModel
 	self.nodes._root = self;
 	self.nodes._label = "nodes";
-	self.nodes._propertiesAlias = self.nodes._asObject;
+	
 
 	superLoad = self.nodes.load;
 	self.nodes.load = function(srcObject, assignID) {
