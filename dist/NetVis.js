@@ -263,6 +263,8 @@ function NetVis(Options) {
 	self._playmode = false;
 
 	self.config = {
+		_root: self,
+		_label: "configuration",
 		nodeDefaultDistance: 30,
 		nodeDefaultRadius: 10,
 		loopPlay: false
