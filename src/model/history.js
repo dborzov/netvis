@@ -6,6 +6,8 @@ NetVis.prototype._constructHistory = function() {
 	self.history = new BaseNetVisModel(self, "timeline"); // History class inherits from baseModel
 
 	self.history.loadEvent = function(obj, momentTime) {
+		obj._root = self.history;
+
 		obj._t = momentTime;
 		obj.time = momentTime.toISOString();
 		// eventID to be unique and contain timestamp
@@ -13,6 +15,7 @@ NetVis.prototype._constructHistory = function() {
 		// the same timestamp
 		var i=1;
 		obj.id = obj.time;
+		obj._label = obj.id;
 		while(this._asObject[obj.id]){
 			i++;
 			obj.id = obj.time + "#" + i;
