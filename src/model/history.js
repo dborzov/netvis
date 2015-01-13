@@ -38,7 +38,7 @@ NetVis.prototype._constructHistory = function() {
 			}
 		}
 		this.asArray.splice(Math.floor((highI + lowI) /2), 0,obj);
-
+		return obj;
 	};
 
 
