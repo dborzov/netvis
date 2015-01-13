@@ -18,9 +18,6 @@ BaseNetVisModel = function(root, label) {
 			srcObject.id = assignID;
 		}
 
-		// assign graph labels
-		srcObject._root = self;
-		srcObject._label = srcObject.id;
 
 		if (!srcObject.id) {
 			return 'BaseNetVisModel.load() no ID provided';
@@ -30,6 +27,9 @@ BaseNetVisModel = function(root, label) {
 			return self._asObject[srcObject.id];
 		}
 
+		// assign graph labels
+		srcObject._root = self;
+		srcObject._label = srcObject.id;
 		self._asObject[srcObject.id] = srcObject;
 		self.asArray.push(srcObject);
 		return srcObject;

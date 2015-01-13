@@ -9,12 +9,14 @@ NetVis.prototype._constructNodes = function() {
 	superLoad = self.nodes.load;
 	self.nodes.load = function(srcObject, assignID) {
 		// if a new node instance and "permanentNode" is not false, will make the
-		if (srcObject.id && !self.nodes._asObject[srcObject.id]) {
-			if (typeof srcObject.permanentNode === 'undefined') {
-				srcObject.permanentNode = true;
-			}
-			return superLoad(srcObject, assignID);
+		if (srcObject.id && self.nodes._asObject[srcObject.id]) {
+			return self.nodes._asObject[srcObject.id];
 		}
+
+		if (srcObject.id && typeof srcObject.permanentNode === 'undefined') {
+				srcObject.permanentNode = true;
+		}
+		return superLoad(srcObject, assignID);
 	};
 
 	self.nodes.updateAll = function() {
