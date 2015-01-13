@@ -35,6 +35,11 @@ BaseNetVisModel = function(root, label) {
 		return srcObject;
 	};
 };
+/////////////////////////////////////////////////////////////// NetVis.connections handles network's connections between nodes
+
+NetVis.prototype._constructConeections = function() {
+    this.connections = new BaseNetVisModel(this, "connections");
+};
 /////////////////////////////////////////////////////////////// Define history model and handlers
 
 
