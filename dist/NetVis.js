@@ -80,7 +80,7 @@ NetVis.prototype._constructHistory = function() {
 			}
 		}
 		this.asArray.splice(Math.floor((highI + lowI) /2), 0,obj);
-
+		return obj;
 	};
 
 
@@ -356,6 +356,9 @@ NetVis.prototype.parse = function(srcJSON) {
 			case "messageReceived":
 				this._parseMessageReceived(srcJSON[i]);
 				break;
+			case "nodeConnected":
+				this._parseNodeConnected(srcJSON[i]);
+				break;
 			default:
 				console.log("Event type ",srcJSON[i].event, " not supported");
 		}
@@ -413,6 +416,20 @@ NetVis.prototype._parseMessageSent = function(src) {
 	return r;
 };
 
+/////////////////////////////////////////////////////////////// parse nodeConnected event
+
+NetVis.prototype._parseNodeConnected = function(src) {
+    var r = this.connections.load({
+      "connectingNode": src.connectingNode,
+      "dialedNode":src.dialedNode
+    }, src.connectingNode + ":" + src.dialedNode);
+    r.connectingNode = this.nodes.load({"id":src.connectingNode});
+    r.dialedNode = this.nodes.load({"id":src.dialedNode});
+
+    var e = this.history.loadEvent(src, moment(src.time));
+    e.connection = r;
+    return e;
+};
 /////////////////////////////////////////////////////////////// parse NodeEntered event
 
 NetVis.prototype._parseNodeEntered = function(src) {

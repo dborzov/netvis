@@ -26,6 +26,9 @@ NetVis.prototype.parse = function(srcJSON) {
 			case "messageReceived":
 				this._parseMessageReceived(srcJSON[i]);
 				break;
+			case "nodeConnected":
+				this._parseNodeConnected(srcJSON[i]);
+				break;
 			default:
 				console.log("Event type ",srcJSON[i].event, " not supported");
 		}
