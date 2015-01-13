@@ -1,13 +1,12 @@
 // NetVis.Messages handles network's messages that nodes communicate with
 
-
-NetVisMessages = function() {
+NetVis.prototype._constructMessages = function() {
 	var self = this;
-	BaseNetVisModel.apply(self); // Messages class inherits from baseModel
+	self.messages = new BaseNetVisModel(self, "messages"); // Messages class inherits from baseModel
 
-	self.updateAll = function() {
-		for (var i=0; i< self.asArray.length; i++) {
-			self.asArray[i]._p = Math.random(); // _p goes from 0 to 100 to animate message direction
+	self.messages.updateAll = function() {
+		for (var i=0; i< this.asArray.length; i++) {
+			this.asArray[i]._p = Math.random(); // _p goes from 0 to 100 to animate message direction
 		}
 	};
 };
