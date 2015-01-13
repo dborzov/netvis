@@ -7,6 +7,14 @@
 		"name": "Gandalf"
 	},
 	{
+		"time": "2008-11-12T11:35:01.077817100Z",
+		"loggerID":"Gandalf",
+		"level": "info",
+		"event":"nodeConnected",
+		"connectingNode": "Gandalf",
+		"dialedNode": "Legolas"
+	},
+	{
 		"time": "2014-11-13T11:34:01.477817180Z",
 		"loggerID":"Gandalf",
 		"level": "info",
