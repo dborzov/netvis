@@ -22,10 +22,10 @@ NetVis.prototype.render = function() {
 
   // Draw the big grey circle in the center
   canvas.append("circle")
-  .attr("cx", 0.5*width)
-  .attr("cy", 0.5*width)
-  .attr("r", 0.3*width)
-  .attr("class", "contour");
+    .attr("cx", 0.5*width)
+    .attr("cy", 0.5*width)
+    .attr("r", 0.3*width)
+    .attr("class", "contour");
 
 
   messages = canvas.selectAll('line.message').data(self._selectedTimeInterval.messages)
@@ -39,9 +39,13 @@ NetVis.prototype.render = function() {
   .attr('class','messageAnimation');
 
   nodes = canvas.selectAll("circle.node").data(self._selectedTimeInterval.nodes)
-  .enter().append("circle")
-  .on("click",function(d) { self._selected = d; self.render();})
-  .attr('class','node');
+    .enter().append("circle")
+    .on("click",function(d) { self._selected = d; self.render();})
+    .attr('class','node');
+
+  labels = canvas.selectAll("text").data(self._selectedTimeInterval.nodes)
+    .enter().append("text")
+    .text(function(d) {return d.id; });
 
   syncPositions = function() {
     messages
@@ -56,6 +60,10 @@ NetVis.prototype.render = function() {
     .attr("x2", function(d) {return d.source._xAbs + d._p*(d.destination._xAbs - d.source._xAbs);})
     .attr("y2", function(d) {return d.source._yAbs + d._p*(d.destination._yAbs - d.source._yAbs);});
 
+
+    labels
+      .attr("x", function(d) {return d._xAbs + self.config.nodeDefaultRadius*2.3;})
+      .attr("y", function(d) {return d._yAbs;});
 
     return	nodes
     .attr("cx", function(d) {return d._xAbs;})
