@@ -15,12 +15,12 @@ NetVis.prototype._constructHistory = function() {
 		// the same timestamp
 		var i=1;
 		obj.id = obj.time;
-		obj._label = obj.id;
 		while(this._asObject[obj.id]){
 			i++;
-			obj.id = obj.time + "#" + i;
+			obj.id = obj.time + "#" + i + "(" + obj.event + ")";
 		}
-		obj.id = obj.time;
+		obj.id = obj.time  + "(" + obj.event + ")";
+		obj._label = obj.id;
 		this._asObject[obj.id] = obj;
 
 
@@ -79,6 +79,8 @@ NetVis.prototype._constructHistory = function() {
 				}
 			}
 			curInterval.i = this.intervals.length; // store position index to assign timeline slider to the corresponding position
+			curInterval._root = this;
+			curInterval._label = "interval " + this.intervals.length;
 			this.intervals.push(curInterval);
 			startEvents = finishEvents;
 		}
