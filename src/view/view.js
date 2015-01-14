@@ -30,11 +30,23 @@ NetVis.prototype.initView = function() {
        onSlideEnd: function(position, value) {
        	self._selectedTimeInterval = self.history.intervals[value -1];
        	self._selected = self._selectedTimeInterval;
-       	$('#timestamp').html(value);
 				self.render();
        }
      });
 
+		$(self._topologyPanel).empty();
 
+		var width = $(self._topologyPanel).width();
+		canvas = d3.select(self._topologyPanel)
+			.append("svg")
+			.attr("width",$(self._topologyPanel).width())
+			.attr("height",$(self._topologyPanel).height());
+
+		// Draw the big grey circle in the center
+		canvas.append("circle")
+			.attr("cx", 0.5*width)
+			.attr("cy", 0.5*width)
+			.attr("r", 0.3*width)
+			.attr("class", "contour");
      self.render();
 };
