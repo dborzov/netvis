@@ -11,11 +11,13 @@ NetVisInterval = function(startEvents, endEvents, prevInterval) {
 	this.ends = this._ends.toISOString();
 
 	if (prevInterval) {
-		this.messages = prevInterval.messages.slice(0); // js way of copying array instance
+		this.messages = prevInterval.messages.slice(0); // js way of copying an array
 		this.nodes = 	prevInterval.nodes.slice(0);
+		this.connections = prevInterval.connections.slice(0);
 	} else {
 		this.messages = [];
 		this.nodes = [];
+		this.connections = [];
 	}
 
 	for(var i=0; i< this.startEvents.length; i++) {
@@ -40,6 +42,10 @@ NetVisInterval = function(startEvents, endEvents, prevInterval) {
 				       this.messages.splice(h, 1);
 				    }
 				}
+				break;
+			case "nodeConnected":
+				this.connections.push(event.connection);
+				break;
 		}
 	}
 };
