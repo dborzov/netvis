@@ -39,14 +39,10 @@ NetVis.prototype.initView = function() {
 		var width = $(self._topologyPanel).width();
 		canvas = d3.select(self._topologyPanel)
 			.append("svg")
+			.attr("id", "netvis-topology-panel")
 			.attr("width",$(self._topologyPanel).width())
 			.attr("height",$(self._topologyPanel).height());
 
 		// Draw the big grey circle in the center
-		canvas.append("circle")
-			.attr("cx", 0.5*width)
-			.attr("cy", 0.5*width)
-			.attr("r", 0.3*width)
-			.attr("class", "contour");
      self.render();
 };

@@ -455,11 +455,27 @@ NetVis.prototype._parseNodeExited = function(src) {
   var e = this.history.loadEvent(src, moment(src.time));
   return r;
 };
+/////////////////////////////////////////////////////////////// defaultBackground.js
+// custom background can be added to the topology panel
+// for example, one can draw nodes on top of geographic map
+// and depict network node's real locations
+// if none is provided, the default grey circle background is used
+
+NetVis.prototype.drawBackground = function() {
+  canvas.append("circle")
+    .attr("cx", 0.5*this._width)
+    .attr("cy", 0.5*this._width)
+    .attr("r", 0.3*this._width)
+    .attr("class", "contour");
+};
 /////////////////////////////////////////////////////////////// view/message.js
 // Defines render() function for messages /////////////////////////////////////////////////////////////
 NetVis.prototype.render = function() {
   var self = this;
   var width = $(self._topologyPanel).width();
+  self._width = width;
+  $("#netvis-topology-panel").empty();
+  self.drawBackground();
 
   self.nodes.asArray.forEach(function(el) {
     if (!el._xAbs) {
@@ -472,18 +488,7 @@ NetVis.prototype.render = function() {
 
 
 
-  $(self._topologyPanel).empty();
-  canvas = d3.select(self._topologyPanel)
-  .append("svg")
-  .attr("width",$(self._topologyPanel).width())
-  .attr("height",$(self._topologyPanel).height());
 
-  // Draw the big grey circle in the center
-  canvas.append("circle")
-    .attr("cx", 0.5*width)
-    .attr("cy", 0.5*width)
-    .attr("r", 0.3*width)
-    .attr("class", "contour");
 
 
   messages = canvas.selectAll('line.message').data(self._selectedTimeInterval.messages)
@@ -685,14 +690,10 @@ NetVis.prototype.initView = function() {
 		var width = $(self._topologyPanel).width();
 		canvas = d3.select(self._topologyPanel)
 			.append("svg")
+			.attr("id", "netvis-topology-panel")
 			.attr("width",$(self._topologyPanel).width())
 			.attr("height",$(self._topologyPanel).height());
 
 		// Draw the big grey circle in the center
-		canvas.append("circle")
-			.attr("cx", 0.5*width)
-			.attr("cy", 0.5*width)
-			.attr("r", 0.3*width)
-			.attr("class", "contour");
      self.render();
 };
