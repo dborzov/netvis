@@ -91,6 +91,11 @@ NetVis.prototype._constructHistory = function() {
 			this.intervals[j+1].prev = this.intervals[j];
 		}
 
+		// change human readable timestamp for the last time interval
+		if (this.intervals.length) {
+			this.intervals[this.intervals.length -1].humanTimeLabel = "At "  + this.intervals[this.intervals.length -1]._starts.format("dddd, MMMM Do YYYY, h:mm:ss a");
+		}
+
 	};
 
 
