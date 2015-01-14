@@ -17,12 +17,12 @@ $(function() {
 
   d3.json(SrcURL, function(error, json) {
   	if (error) {
-  		demo.View.Logger.error("Failure loading "+SrcURL+": "+ error.statusText);
+  		demo.logger.error("Failure loading "+SrcURL+": "+ error.statusText);
   		return;
   	}
-  	demo.View.Logger.info("Succesfully resolved " + SrcURL);
+  	demo.logger.info("Succesfully resolved " + SrcURL);
     demo.parse(json);
-    demo.View.Logger.info(demo);
+    demo.logger.info(demo);
     demo.initView();
   });
 });
