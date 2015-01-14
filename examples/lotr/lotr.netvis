@@ -80,6 +80,22 @@
 	},
 
 	{
+		"time": "2014-11-16T15:34:01.477817180Z",
+		"loggerID":"Boromir",
+		"level": "info",
+		"event":"messageReceived",
+		"destinationNode": "Boromir",
+		"message":
+		{
+				"request_id": "Boromir Request",
+				"time": "2014-11-12T11:34:01.477817180Z",
+				"protocol": "IPFS 0.1",
+				"type": "join",
+				"contents": "Hey Boromir! How are things? Could you come by real quick? -Elrond"
+		}
+	},
+
+	{
 		"time": "2014-11-17T11:34:01.477817180Z",
 		"loggerID":"Rivendell, the house of Elrond",
 		"level": "info",
