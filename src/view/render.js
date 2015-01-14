@@ -189,4 +189,7 @@ NetVis.prototype.render = function() {
     .val(self._selectedTimeInterval.i + 1)
     .change();
 
+  $("#timestamp")
+    .html(self._selectedTimeInterval.humanTimeLabel);
+
 };

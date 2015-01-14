@@ -14,7 +14,10 @@ NetVisInterval = function(startEvents, endEvents, prevInterval) {
 		this.messages = prevInterval.messages.slice(0); // js way of copying an array
 		this.nodes = 	prevInterval.nodes.slice(0);
 		this.connections = prevInterval.connections.slice(0);
+		this.humanTimeLabel = this._starts.format("dddd, MMMM Do YYYY, h:mm:ss a") + " + " + this._ends.from(this._starts, true);
+
 	} else {
+		this.humanTimeLabel = "At " + this._ends.format("dddd, MMMM Do YYYY, h:mm:ss a");
 		this.messages = [];
 		this.nodes = [];
 		this.connections = [];
