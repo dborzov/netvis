@@ -20,7 +20,7 @@ function NetVis(Options) {
 	self._constructMessages(); // constructor for self.messages
 	self._constructConnections(); // constructor for self.connections
 	self._constructHistory(); // constructor for self.history
-	self.View = new NetVisView();
+  self._constructLogger();
 	self._selected = self; // _selected object's public attributes are shown at properties-table
 
 

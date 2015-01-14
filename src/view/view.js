@@ -1,10 +1,12 @@
 // view.js defines Netvis.view
 
-function NetVisView() {
+NetVis.prototype._constructLogger = function() {
 	$('.alert .close').on('click', function(e) {
 	    $(this).parent().hide();
 	});
-	this.Logger = {
+	this.logger = {
+		"_root": this,
+		"_label":"logger",
 		"error": function(errorMessage) {
 			console.error(errorMessage);
 			$('.error-alert').append("<p>"+ errorMessage +"</p>");
@@ -14,7 +16,7 @@ function NetVisView() {
 			console.log(logMessage);
 		}
 	};
-}
+};
 
 NetVis.prototype.initView = function() {
 	var self = this;
