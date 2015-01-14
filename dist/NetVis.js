@@ -174,11 +174,13 @@ NetVisInterval = function(startEvents, endEvents, prevInterval) {
 	this.ends = this._ends.toISOString();
 
 	if (prevInterval) {
-		this.messages = prevInterval.messages.slice(0); // js way of copying array instance
+		this.messages = prevInterval.messages.slice(0); // js way of copying an array
 		this.nodes = 	prevInterval.nodes.slice(0);
+		this.connections = prevInterval.connections.slice(0);
 	} else {
 		this.messages = [];
 		this.nodes = [];
+		this.connections = [];
 	}
 
 	for(var i=0; i< this.startEvents.length; i++) {
@@ -203,6 +205,10 @@ NetVisInterval = function(startEvents, endEvents, prevInterval) {
 				       this.messages.splice(h, 1);
 				    }
 				}
+				break;
+			case "nodeConnected":
+				this.connections.push(event.connection);
+				break;
 		}
 	}
 };
@@ -281,7 +287,7 @@ function NetVis(Options) {
 	self._constructMessages(); // constructor for self.messages
 	self._constructConnections(); // constructor for self.connections
 	self._constructHistory(); // constructor for self.history
-	self.View = new NetVisView();
+  self._constructLogger();
 	self._selected = self; // _selected object's public attributes are shown at properties-table
 
 
@@ -486,9 +492,10 @@ NetVis.prototype.render = function() {
     }
   });
 
-
-
-
+  connections = canvas.selectAll('line.connection').data(self._selectedTimeInterval.connections)
+    .enter().append('line')
+    .on("click",function(d) { self._selected = d; self.render();})
+    .attr('class','connection');
 
 
   messages = canvas.selectAll('line.message').data(self._selectedTimeInterval.messages)
@@ -511,6 +518,13 @@ NetVis.prototype.render = function() {
     .text(function(d) {return d.id; });
 
   syncPositions = function() {
+    connections
+      .attr("x1", function(d) {return d.connectingNode._xAbs;})
+      .attr("y1", function(d) {return d.connectingNode._yAbs;})
+      .attr("x2", function(d) {return d.dialedNode._xAbs;})
+      .attr("y2", function(d) {return d.dialedNode._yAbs;});
+
+
     messages
     .attr("x1", function(d) {return d.source._xAbs;})
     .attr("y1", function(d) {return d.source._yAbs;})
@@ -571,6 +585,10 @@ NetVis.prototype.render = function() {
   .on("click",function(d) { self._selected = self; self.render();}) // double click unselects it
   .attr('class','message selected');
 
+  // highlight selected connection
+  connections.filter(function(d) {return self._selected.id === d.id;})
+    .on("click",function(d) { self._selected = self; self.render();}) // double click unselects it
+    .attr('class','connection selected');
 
   // Render selected item graph position
   $("#tree").empty();
@@ -651,11 +669,13 @@ NetVis.prototype.render = function() {
 };
 /////////////////////////////////////////////////////////////// view.js defines Netvis.view
 
-function NetVisView() {
+NetVis.prototype._constructLogger = function() {
 	$('.alert .close').on('click', function(e) {
 	    $(this).parent().hide();
 	});
-	this.Logger = {
+	this.logger = {
+		"_root": this,
+		"_label":"logger",
 		"error": function(errorMessage) {
 			console.error(errorMessage);
 			$('.error-alert').append("<p>"+ errorMessage +"</p>");
@@ -665,7 +685,7 @@ function NetVisView() {
 			console.log(logMessage);
 		}
 	};
-}
+};
 
 NetVis.prototype.initView = function() {
 	var self = this;
