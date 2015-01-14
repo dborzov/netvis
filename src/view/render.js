@@ -15,9 +15,10 @@ NetVis.prototype.render = function() {
     }
   });
 
-
-
-
+  connections = canvas.selectAll('line.connection').data(self._selectedTimeInterval.connections)
+    .enter().append('line')
+    .on("click",function(d) { self._selected = d; self.render();})
+    .attr('class','connection');
 
 
   messages = canvas.selectAll('line.message').data(self._selectedTimeInterval.messages)
@@ -40,6 +41,13 @@ NetVis.prototype.render = function() {
     .text(function(d) {return d.id; });
 
   syncPositions = function() {
+    connections
+      .attr("x1", function(d) {return d.connectingNode._xAbs;})
+      .attr("y1", function(d) {return d.connectingNode._yAbs;})
+      .attr("x2", function(d) {return d.dialedNode._xAbs;})
+      .attr("y2", function(d) {return d.dialedNode._yAbs;});
+
+
     messages
     .attr("x1", function(d) {return d.source._xAbs;})
     .attr("y1", function(d) {return d.source._yAbs;})
@@ -100,6 +108,10 @@ NetVis.prototype.render = function() {
   .on("click",function(d) { self._selected = self; self.render();}) // double click unselects it
   .attr('class','message selected');
 
+  // highlight selected connection
+  connections.filter(function(d) {return self._selected.id === d.id;})
+    .on("click",function(d) { self._selected = self; self.render();}) // double click unselects it
+    .attr('class','connection selected');
 
   // Render selected item graph position
   $("#tree").empty();

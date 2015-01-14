@@ -43,7 +43,7 @@ circle.contour {
 
 circle.node {
 	fill:steelblue;
-	stroke:black; 
+	stroke:black;
 	stroke-width:0.5px;
 }
 
@@ -54,34 +54,46 @@ circle.node:hover {
 
 circle.node.selected {
 	fill:#aa88ff;
-	stroke:red; 
+	stroke:red;
 	stroke-width:3px;
 }
 
 circle.node.selected:hover {
 	fill:#aa99ff;
-	stroke:red; 
+	stroke:red;
 	stroke-width:6px;
 }
 
 /* messages */
 line.message {
-	stroke:#550077; 
+	stroke:#550077;
 	stroke-width:5.5px;
 }
 
 line.messageAnimation {
-	stroke:#880077; 
+	stroke:#880077;
 	stroke-width:9.5px;
 }
 
 
 line.message:hover {
-	stroke:black; 
+	stroke:black;
 	stroke-width:7.5px;
 }
 
 line.message.selected {
-	stroke:red; 
+	stroke:red;
 	stroke-width:12.0px;
+}
+
+/* connections */
+
+line.connection {
+	stroke:#000000;
+	stroke-width:6.5px;
+}
+
+line.connection .selected{
+	stroke:#000000;
+	stroke-width:10.5px;
 }
