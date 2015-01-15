@@ -9,6 +9,10 @@
 	margin-top: 20px;
 }
 
+td {
+	padding: 5px;
+}
+
 .properties-panel {
 	margin-left: 20px;
 }
