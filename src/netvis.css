@@ -14,7 +14,9 @@
 }
 
 .properties-table {
-	margin-top: 20px;
+	font-size: 14px;
+	border: 0px solid #ffffff;
+	width: 100%;
 }
 
 .properties-column {
