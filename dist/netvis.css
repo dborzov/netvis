@@ -22,6 +22,10 @@
 	word-wrap: break-word;
 }
 
+.netvis-model-path {
+	font-size: 16px;
+}
+
 #chart {
 	border: 1px solid grey;
 	min-height: 700px;
