@@ -23,7 +23,12 @@
 }
 
 .netvis-model-path {
-	font-size: 16px;
+	font-size: 15px;
+}
+
+.netvis-path-selected {
+	font-size: 17px;
+	font-weight: bold;
 }
 
 #chart {

@@ -619,6 +619,11 @@ NetVis.prototype.render = function() {
     .text(function(d) {return d.label;})
     .on("click", function(d) {self._selected = d.obj; self.render(); });
 
+  $("#tree")
+    .children("li")
+    .last()
+    .attr("class", "netvis-path-selected");
+
   // Render properties-table
   $("#properties-tbody").empty();
   attributes = [];
