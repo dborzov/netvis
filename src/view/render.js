@@ -122,7 +122,7 @@ NetVis.prototype.render = function() {
     cur = cur._root;
   }
 
-  position.unshift({"label":"Home", "obj": self});
+  position.unshift({"label":"Network", "obj": self});
   d3.select("#tree")
     .selectAll("li")
     .data(position)

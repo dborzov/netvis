@@ -609,7 +609,7 @@ NetVis.prototype.render = function() {
     cur = cur._root;
   }
 
-  position.unshift({"label":"Home", "obj": self});
+  position.unshift({"label":"Network", "obj": self});
   d3.select("#tree")
     .selectAll("li")
     .data(position)
@@ -651,15 +651,15 @@ NetVis.prototype.render = function() {
 
   rows = d3.select("#properties-tbody").selectAll("tr").data(attributes).enter().append("tr");
 
-  rows.append("td").text(function(d) {return d.attr; });
-
-  rows.filter(function(d) {return !d.obj;})
+  valued = rows.filter(function(d) {return !d.obj;});
+  valued.append("td").text(function(d) {return d.attr; });
+  valued
     .append("td")
     .append("div")
     .attr("class","properties-column")
     .text(function(d) {return d.value; });
 
-  rows.filter(function(d) {return d.obj;}).append("td").append("a").text(function(d) {return "more.."; })
+  rows.filter(function(d) {return d.obj;}).append("td").append("a").text(function(d) {return d.attr; })
   .on("click", function(d) {self._selected = d.value; self.render();});
 
 
