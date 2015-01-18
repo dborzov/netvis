@@ -15,16 +15,19 @@ NetVis.prototype.render = function() {
     }
   });
 
-  connections = canvas.selectAll('line.connection').data(self._selectedTimeInterval.connections)
-    .enter().append('line')
+  connections = canvas.selectAll('path.connection').data(self._selectedTimeInterval.connections)
+    .enter().append('path')
+    .attr("fill","transparent")
+    .attr("stroke","black")
     .on("click",function(d) { self._selected = d; self.render();})
     .attr('class','connection');
 
 
   messages = canvas.selectAll('line.message').data(self._selectedTimeInterval.messages)
-  .enter().append('line')
-  .on("click",function(d) { self._selected = d; self.render();})
-  .attr('class','message');
+    .enter().append('line')
+    .on("click",function(d) { self._selected = d; self.render();})
+    .attr('class','message');
+
 
   messagesAnimation = canvas.selectAll('line.messageAnimation').data(self._selectedTimeInterval.messages)
   .enter().append('line')
@@ -42,10 +45,12 @@ NetVis.prototype.render = function() {
 
   syncPositions = function() {
     connections
-      .attr("x1", function(d) {return d.connectingNode._xAbs;})
-      .attr("y1", function(d) {return d.connectingNode._yAbs;})
-      .attr("x2", function(d) {return d.dialedNode._xAbs;})
-      .attr("y2", function(d) {return d.dialedNode._yAbs;});
+      .attr("d", function(d) {
+        from = "M" + d.connectingNode._xAbs + " " + d.connectingNode._yAbs + " ";
+        curve = "C " + 0.5*width + " " + 0.5*width + " " +  0.5*width + " "+ 0.5*width;
+        to = " " + d.dialedNode._xAbs + " " + d.dialedNode._yAbs;
+        return from + curve + to;
+      });
 
 
     messages
@@ -53,6 +58,7 @@ NetVis.prototype.render = function() {
     .attr("y1", function(d) {return d.source._yAbs;})
     .attr("x2", function(d) {return d.destination._xAbs;})
     .attr("y2", function(d) {return d.destination._yAbs;});
+
 
     messagesAnimation
     .attr("x1", function(d) {return d.source._xAbs;})
