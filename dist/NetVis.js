@@ -485,7 +485,29 @@ NetVis.prototype.drawBackground = function() {
     .attr("class", "contour");
 };
 /////////////////////////////////////////////////////////////// view/message.js
-// Defines render() function for messages /////////////////////////////////////////////////////////////
+// Defines render() function for messages
+
+
+NetVis.prototype.drawMessageCX = function(d) {
+  alphaX = d.source._xAbs;
+  betaX = d.destination._xAbs;
+  aX = 300;
+  t = d._p;
+  GY = alphaX + 2*t*(aX - alphaX) + (alphaX + betaX - 2 *aX)*t*t;
+  console.log("MessageCX reporting in: ", GY);
+  return GY;
+};
+
+NetVis.prototype.drawMessageCY = function(d) {
+  alphaX = d.source._yAbs;
+  betaX = d.destination._yAbs;
+  aX = 300;
+  t = d._p;
+  Gy =alphaX + 2*t*(aX - alphaX) + (alphaX + betaX - 2*aX)*t*t;
+  console.log("MessageCY reporting in: ", Gy);
+  return alphaX + 2*t*(aX - alphaX) + (alphaX + betaX - 2*aX)*t*t;
+};
+/////////////////////////////////////////////////////////////
 NetVis.prototype.render = function() {
   var self = this;
   var width = $(self._topologyPanel).width();
@@ -516,8 +538,8 @@ NetVis.prototype.render = function() {
     .attr('class','message');
 
 
-  messagesAnimation = canvas.selectAll('line.messageAnimation').data(self._selectedTimeInterval.messages)
-  .enter().append('line')
+  messagesAnimation = canvas.selectAll('circle.messageAnimation').data(self._selectedTimeInterval.messages)
+  .enter().append('circle')
   .on("click",function(d) { self._selected = d; self.render();})
   .attr('class','messageAnimation');
 
@@ -548,11 +570,8 @@ NetVis.prototype.render = function() {
 
 
     messagesAnimation
-    .attr("x1", function(d) {return d.source._xAbs;})
-    .attr("y1", function(d) {return d.source._yAbs;})
-    .attr("x2", function(d) {return d.source._xAbs + d._p*(d.destination._xAbs - d.source._xAbs);})
-    .attr("y2", function(d) {return d.source._yAbs + d._p*(d.destination._yAbs - d.source._yAbs);});
-
+      .attr("cx", self.drawMessageCX)
+      .attr("cy", self.drawMessageCY);
 
     labels
       .attr("x", function(d) {return d._xAbs + self.config.nodeDefaultRadius*2.3;})
