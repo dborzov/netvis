@@ -29,8 +29,8 @@ NetVis.prototype.render = function() {
     .attr('class','message');
 
 
-  messagesAnimation = canvas.selectAll('line.messageAnimation').data(self._selectedTimeInterval.messages)
-  .enter().append('line')
+  messagesAnimation = canvas.selectAll('circle.messageAnimation').data(self._selectedTimeInterval.messages)
+  .enter().append('circle')
   .on("click",function(d) { self._selected = d; self.render();})
   .attr('class','messageAnimation');
 
@@ -61,11 +61,8 @@ NetVis.prototype.render = function() {
 
 
     messagesAnimation
-    .attr("x1", function(d) {return d.source._xAbs;})
-    .attr("y1", function(d) {return d.source._yAbs;})
-    .attr("x2", function(d) {return d.source._xAbs + d._p*(d.destination._xAbs - d.source._xAbs);})
-    .attr("y2", function(d) {return d.source._yAbs + d._p*(d.destination._yAbs - d.source._yAbs);});
-
+      .attr("cx", self.drawMessageCX)
+      .attr("cy", self.drawMessageCY);
 
     labels
       .attr("x", function(d) {return d._xAbs + self.config.nodeDefaultRadius*2.3;})
