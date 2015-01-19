@@ -14,12 +14,13 @@
 		"connectingNode": "Gandalf",
 		"dialedNode": "Legolas"
 	},
+
 	{
 		"time": "2014-11-13T11:34:01.477817180Z",
 		"loggerID":"Gandalf",
 		"level": "info",
 		"event":"messageSent",
-		"destinationNode": "Rivendell, the house of Elrond",
+		"destinationNode": "Legolas",
 		"message":
 		{
 				"request_id": "Gandalf request",
@@ -35,7 +36,7 @@
 		"loggerID":"Rivendell, the house of Elrond",
 		"level": "info",
 		"event":"messageReceived",
-		"destinationNode": "Rivendell, the house of Elrond",
+		"destinationNode": "Legolas",
 		"message":
 		{
 				"request_id": "Gandalf request",
