@@ -45,20 +45,19 @@ NetVis.prototype.initView = function() {
 
 			// define message drawing funcitions that use self._width
 			self.drawMessageCX = function(d) {
-				alphaX = d.source._xAbs;
-				betaX = d.destination._xAbs;
-				aX = self._width*0.5;
+				p0 = d.source._xAbs;
+				p3 = d.destination._xAbs;
+				c = self._width*0.5;
 				t = d._p;
-				GY = alphaX + 2*t*(aX - alphaX) + (alphaX + betaX - 2 *aX)*t*t;
-				return GY;
+				return Math.pow(1-t,3)*p0 + 3*(1-t)*t*c + Math.pow(t,3)*p3;
 			};
 
 			self.drawMessageCY = function(d) {
-				alphaX = d.source._yAbs;
-				betaX = d.destination._yAbs;
-				aX = self._width*0.5;
+				p0 = d.source._yAbs;
+				p3 = d.destination._yAbs;
+				c = self._width*0.5;
 				t = d._p;
-				return alphaX + 2*t*(aX - alphaX) + (alphaX + betaX - 2*aX)*t*t;
+				return Math.pow(1-t,3)*p0 + 3*(1-t)*t*c + Math.pow(t,3)*p3;
 			};
 
 			// draw canvas
