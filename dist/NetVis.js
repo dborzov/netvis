@@ -520,12 +520,14 @@ NetVis.prototype.render = function() {
   messagesAnimation = canvas.selectAll('circle.messageAnimation').data(self._selectedTimeInterval.messages)
   .enter().append('circle')
   .on("click",function(d) { self._selected = d; self.render();})
-  .attr('class','messageAnimation');
+  .attr('class','messageAnimation')
+  .attr("r",0.5*self.config.nodeDefaultRadius);
 
   nodes = canvas.selectAll("circle.node").data(self._selectedTimeInterval.nodes)
     .enter().append("circle")
     .on("click",function(d) { self._selected = d; self.render();})
-    .attr('class','node');
+    .attr('class','node')
+    .attr("r",self.config.nodeDefaultRadius);
 
   labels = canvas.selectAll("text").data(self._selectedTimeInterval.nodes)
     .enter().append("text")
@@ -572,7 +574,6 @@ NetVis.prototype.render = function() {
 
 
   syncPositions()
-  .attr("r",self.config.nodeDefaultRadius)
   .call(d3.behavior.drag()
   .on("dragstart", function(d) {
     this.__origin__ = [d._xAbs, d._yAbs];
