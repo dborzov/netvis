@@ -88,7 +88,7 @@ line.message {
 circle.messageAnimation {
 	fill:#880077;
 	stroke:black;
-	stroke-width:6.0px;
+	stroke-width:0.1px;
 }
 
 line.messageAnimation {
