@@ -60,6 +60,20 @@ NetVis.prototype.initView = function() {
 				return Math.pow(1-t,3)*p0 + 3*(1-t)*t*c + Math.pow(t,3)*p3;
 			};
 
+			self.drawConnection = function(d) {
+				from = "M" + d.connectingNode._xAbs + " " + d.connectingNode._yAbs + " ";
+				curve = "C " + 0.5*self._width + " " + 0.5*self._width + " " +  0.5*self._width + " "+ 0.5*self._width;
+				to = " " + d.dialedNode._xAbs + " " + d.dialedNode._yAbs;
+				return from + curve + to;
+			};
+
+			self.drawMessage = function(d) {
+				from = "M" + d.source._xAbs + " " + d.source._yAbs + " ";
+				curve = "C " + 0.5*self._width + " " + 0.5*self._width + " " +  0.5*self._width + " "+ 0.5*self._width;
+				to = " " + d.destination._xAbs + " " + d.destination._yAbs;
+				return from + curve + to;
+			};
+
 			// draw canvas
 			canvas = d3.select(self._topologyPanel)
 				.append("svg")
