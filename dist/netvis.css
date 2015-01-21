@@ -80,24 +80,20 @@ circle.node.selected:hover {
 }
 
 /* messages */
-line.message {
+path.message {
 	stroke:#550077;
 	stroke-width:5.5px;
 }
 
 circle.messageAnimation {
-	fill:#880077;
+	fill:#ff7777;
 	stroke:black;
 	stroke-width:0.1px;
 }
 
-line.messageAnimation {
-	stroke:#880077;
-	stroke-width:9.5px;
-}
 
 
-line.message:hover {
+path.message:hover {
 	stroke:black;
 	stroke-width:7.5px;
 }
