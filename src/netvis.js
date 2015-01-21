@@ -54,6 +54,16 @@ function NetVis(Options) {
 		self.render();
 	};
 
+	self.next = function() {
+		self.history.next();
+		self.render();
+	};
+
+	self.prev = function() {
+		self.history.prev();
+		self.render();
+	};
+
 	self.loopPlay = function() {
 		self.config.loopPlay = !self.config.loopPlay;
 		self.render();

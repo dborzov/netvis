@@ -34,7 +34,8 @@ Basic controls functions are on the root level and are the most commonly used on
 - **netVis1.updateAll** rebuilds the whole state model from the loaded events: builds up the timeline, resolves the object links and so on
 - **netVis1.resetPositions()** returns all the user-controlled parameters back to the default values, such as selections, object positions on the topology panel and so on
 - **netVis1.play()** switches between the `play` and `pause` mode
-
+- **netVis1.next()** moves to the next timeinterval
+- **netVis1.prev()** moves to the preceding timeinterval
 A good usage example would be binding one of these functions to the event listener for a button:
 ```js
   $("#reset-positions").click(demo.resetPositions);
@@ -44,3 +45,4 @@ A good usage example would be binding one of these functions to the event listen
 Functions concerning controlling timeline resolution and time intervals model.
 
 - **netVis1.history.next()** move to the next timeinterval if available.
+- **netVis1.history.prev()** move to the preceding timeinterval if available.
