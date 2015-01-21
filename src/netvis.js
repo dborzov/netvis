@@ -69,6 +69,21 @@ function NetVis(Options) {
 		self.render();
 	};
 
+	$(document).on("keydown", function(event) {
+		console.log("keydown logged!", event);
+		switch (event.keyCode) {
+			case 32:
+				self.play();
+				break;
+			case 37:
+				self.prev();
+				break;
+			case 39:
+				self.next();
+				break;
+		}
+	});
+
 }
 
 
