@@ -12,6 +12,8 @@ $(function() {
 
   $("#reset-positions").click(demo.resetPositions);
   $("#play").click(demo.play);
+  $("#next").click(demo.next);
+  $("#prev").click(demo.prev);
   $("#repeat").click(demo.loopPlay);
 
 
