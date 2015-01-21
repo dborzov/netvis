@@ -23,8 +23,10 @@ NetVis.prototype.render = function() {
     .attr('class','connection');
 
 
-  messages = canvas.selectAll('line.message').data(self._selectedTimeInterval.messages)
-    .enter().append('line')
+  messages = canvas.selectAll('path.message').data(self._selectedTimeInterval.messages)
+    .enter().append('path')
+    .attr("fill","transparent")
+    .attr("stroke","black")
     .on("click",function(d) { self._selected = d; self.render();})
     .attr('class','message');
 
@@ -47,20 +49,12 @@ NetVis.prototype.render = function() {
 
   syncPositions = function() {
     connections
-      .attr("d", function(d) {
-        from = "M" + d.connectingNode._xAbs + " " + d.connectingNode._yAbs + " ";
-        curve = "C " + 0.5*width + " " + 0.5*width + " " +  0.5*width + " "+ 0.5*width;
-        to = " " + d.dialedNode._xAbs + " " + d.dialedNode._yAbs;
-        return from + curve + to;
-      });
+      .attr("d", self.drawConnection);
 
 
     messages
-    .attr("x1", function(d) {return d.source._xAbs;})
-    .attr("y1", function(d) {return d.source._yAbs;})
-    .attr("x2", function(d) {return d.destination._xAbs;})
-    .attr("y2", function(d) {return d.destination._yAbs;});
-
+      .attr("d", self.drawMessage);
+    
 
     messagesAnimation
       .attr("cx", self.drawMessageCX)
