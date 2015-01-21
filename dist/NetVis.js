@@ -161,6 +161,15 @@ NetVis.prototype._constructHistory = function() {
 		}
 	};
 
+	self.history.prev = function() {
+		if (!self._selectedTimeInterval) {
+			return;
+		}
+		if (self._selectedTimeInterval.prev) {
+			self._selectedTimeInterval = self._selectedTimeInterval.prev;
+		}
+	};
+
 	// add default time margin moments
 	self.history.loadEvent({"tag":"end"},moment("3000-01-01"));
 	self.history.loadEvent({"tag":"start"},moment("1970-01-01"));
@@ -328,6 +337,16 @@ function NetVis(Options) {
 		} else {
 			window.clearInterval(self._playTicker); // clear play ticking timer
 		}
+		self.render();
+	};
+
+	self.next = function() {
+		self.history.next();
+		self.render();
+	};
+
+	self.prev = function() {
+		self.history.prev();
 		self.render();
 	};
 
