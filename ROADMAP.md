@@ -9,7 +9,7 @@ MVP is specified by [designdoc](https://github.com/dborzov/netvis/blob/master/DE
 Contents
 - [**Week 1**](Week 1): overhauling timeline rendering, adding missing animations, fixing message animations to match timespans
 
-- [**Week 2**](Week 1): finishing events implementation, pipeline to load additional netvis files live, testing
+- [**Week 2**](Week 1): finishing events implementation, pipeline demo that loads additional netvis files live, testing
 
 ### <a name="Week 1"></a> Week 1: finishing implementation of visualization rendering engine
 **Timespan:** Jan 31 - Feb 7th
@@ -17,7 +17,7 @@ Contents
 **Estimated Hours:** 40 hours
 
 - [ ] Timeline overhaul: timeline is to consist of linearly proportional time instances.
-- [ ] Event timestamps will be marked on top of the timeline slider in the style descripbed by jbenet in the feedback note
+- [ ] Event timestamps will be marked on top of the timeline slider in the style described by jbenet in the feedback note
 - [ ] Adding animation for node dialing
 - [ ] Adding animation for node messages dropped
 - [ ] Message delivery animation to match the selected time instance as is described by jbenet's feedback note
