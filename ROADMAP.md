@@ -1,23 +1,46 @@
-##Things to do for milestoneAlpha
+##Roadmap for MVP
 
-Also see
-- [designdoc](https://github.com/dborzov/netvis/blob/master/DESIGNDOC.md)
-- [netvis format spec](https://github.com/dborzov/netvis/blob/master/netvis.md)
+MVP is specified by [designdoc](https://github.com/dborzov/netvis/blob/master/DESIGNDOC.md) and includes an event parser supporting [netvis format spec](https://github.com/dborzov/netvis/blob/master/netvis.md), the visualization rendering and a pipeline for uploading network logs live.
 
+**Estimated Time of implementation**: 2 weeks
 
-### The Model and events
-- [x] add event support: messageSent
-- [x] add event support: messageReceived
+**Estimated hours**: 80 hours
+
+Contents
+- [**Week 1**](Week 1): overhauling timeline rendering, adding missing animations, fixing message animations to match timespans
+
+- [**Week 2**](Week 1): finishing events implementation, pipeline to load additional netvis files live, testing
+
+### <a name="Week 1"></a> Week 1: finishing implementation of visualization rendering engine
+**Timespan:** Jan 31 - Feb 7th
+
+**Estimated Hours:** 40 hours
+
+- [ ] Timeline overhaul: timeline is to consist of linearly proportional time instances.
+- [ ] Event timestamps will be marked on top of the timeline slider in the style descripbed by jbenet in the feedback note
+- [ ] Adding animation for node dialing
+- [ ] Adding animation for node messages dropped
+- [ ] Message delivery animation to match the selected time instance as is described by jbenet's feedback note
+- [ ] Fixing properties-panel browsing issues for time instances
+- [ ] Detailed documentation for NetVis format events
+
+Event Implementation
 - [ ] add event support: messageDropped
-- [x] add event support: nodeEntered
-- [x] add event support: nodeExited
-- [ ] fix nodeExited not rendering right issue (when no matching nodeEntered event)
+- [ ] add event support: nodeDisconnected
 
-### Controls
-- [x] enable model browsing with properties-panel
-- [x] implement playing mode
+### <a name="Week 2"></a> Week 2: finishing event loading implementation, pipeline and demo pages
+**Timespan:** Feb 8 - Feb 14th
 
+**Estimated Hours:** 40 hours
 
-### Demo page
-- [x] Fix playback controls alignement on smaller screens
-- [ ] Add ability to open arbitrary netvis files on demo page
+Event Implementation
+- [ ] add event support: nodeDialed
+- [ ] add event support: nodeAccepted
+- [ ] add event support: nodeStateChange
+- [ ] add event support: annotation
+
+Uploading Pipeline && Demo pages
+- [ ] a pipeline demo that loads additional netvis files to the same model live
+
+Testing and debugging
+- [ ] Add some test coverage
