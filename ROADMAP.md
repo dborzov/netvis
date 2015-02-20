@@ -11,7 +11,7 @@ Also see
 - [ ] add event support: messageDropped
 - [x] add event support: nodeEntered
 - [x] add event support: nodeExited
-- [ ] fix nodeExited not rendering right issue (when no matching nodeEntered event)
+- [x] fix nodeExited not rendering right issue (when no matching nodeEntered event)
 
 ### Controls
 - [x] enable model browsing with properties-panel
